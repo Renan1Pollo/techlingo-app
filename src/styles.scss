@@ -1,0 +1,61 @@
+:root {
+  --color-snow: rgba(255, 255, 255, 1);
+  --color-wolf: rgba(119, 119, 119);
+  --color-light-blue: rgb(26 175 245);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--color-wolf);
+}
+
+html,body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "DINRoundPro";
+}
+
+app-root {
+  height: 100%;
+  display: block;
+}
+
+@font-face {
+  font-family: "DINRoundPro-Black";
+  src: url("assets/fonts/DINRoundPro-Black.woff2") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DINRoundPro-Bold";
+  src: url("assets/fonts/DINRoundPro-Bold.woff2")  format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DINRoundPro-Light";
+  src: url("assets/fonts/DINRoundPro-Light.woff2")  format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DINRoundPro-Medi";
+  src: url("assets/fonts/DINRoundPro-Medi.woff2")  format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DINRoundPro";
+  src: url("assets/fonts/DINRoundPro.woff2")  format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
