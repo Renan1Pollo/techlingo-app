@@ -1,0 +1,40 @@
+header{
+  background-color: var(--color-light-blue);
+  padding: 25px;
+}
+h2{color: white;}
+
+
+.form-box {
+  padding: 25px;
+  margin: 0px auto;
+}
+
+h4 {
+  text-align: center;
+}
+
+.modal-body {
+  margin: -18px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: var(--color-light-blue);
+  color: white;
+}
+
+.modal-header {
+  color: white;
+}
