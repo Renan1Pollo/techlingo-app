@@ -1,0 +1,23 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2 class="text-light">Adicionar Curso</h2>
+      </div>
+    </div>
+  </div>
+</header>
+<br /><br />
+
+<div class="container form-container">
+  <h1 class="form-title text-center mb-4">Adicionar Novo Curso</h1>
+  <div class="form">
+    <app-input [form]="form" label="Nome" controlName="nome" />
+    <app-input [form]="form" label="Descrição" controlName="descricao" />
+    <app-input [form]="form" label="Imagem do Curso" controlName="image" />
+    <div class="d-flex justify-content-between">
+      <button type="button" class="btn btn-danger p-2 mt-2">Voltar</button>
+      <button type="button" class="btn btn-primary p-2 mt-2">Cadastrar</button>
+    </div>
+  </div>
+</div>

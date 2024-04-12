@@ -11,7 +11,7 @@ import { InputComponent } from '../../shared/input/input.component';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
   form!: FormGroup;
 
   ngOnInit(): void {
