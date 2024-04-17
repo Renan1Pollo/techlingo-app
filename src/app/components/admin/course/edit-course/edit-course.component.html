@@ -16,8 +16,8 @@
     <app-input [form]="form" label="Descrição" controlName="descricao" />
     <app-input [form]="form" label="Imagem do Curso" controlName="image" />
     <div class="d-flex justify-content-between">
-      <button type="button" class="btn btn-danger p-2 mt-2">Voltar</button>
-      <button type="button" class="btn btn-primary p-2 mt-2">Salvar</button>
+      <button type="button" class="btn btn-danger p-2 mt-2" (click)="goBack()">Voltar</button>
+      <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveCurso()">Salvar</button>
     </div>
   </div>
 </div>

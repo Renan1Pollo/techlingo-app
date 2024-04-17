@@ -10,14 +10,23 @@ import { Router } from '@angular/router';
 })
 export class CourseComponent {
 
+  response!: Boolean;
   constructor(private router: Router) { }
 
-  addCursos(): void {
-    this.router.navigate(['/add-cursos']);
+  addCurso(): void {
+    this.router.navigate(['/courses/add']);
   }
 
-  editCursos(cursoId: number): void {
+  editCurso(cursoId: number): void {
     this.router.navigate(['/courses', cursoId, 'edit']);
+  }
+
+  deleteCurso(cursoId: number): void {
+    this.response = confirm("Você tem certeza que deseja excluir esse curso?");
+
+    if (this.response) {
+      console.log('Excluido')
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { InputComponent } from "../../../../shared/input/input.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
@@ -11,7 +12,7 @@ import { InputComponent } from "../../../../shared/input/input.component";
 })
 export class AddCourseComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
   form!: FormGroup;
 
   ngOnInit(): void {
@@ -22,7 +23,19 @@ export class AddCourseComponent implements OnInit {
     });
   }
 
-  printForm(): void {
-    console.log(this.form);
+  goBack(): void {
+    this.router.navigate(['/courses']);
   }
+
+  saveCurso(): void {
+    if (this.form.valid) {
+      console.log('Salvo');
+    } else {
+      alert('Formulário inválido')
+      return;
+    }
+
+    this.router.navigate(['/courses']);
+  }
+
 }

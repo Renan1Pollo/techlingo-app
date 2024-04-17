@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from "../../../../shared/input/input.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-course',
@@ -16,7 +16,8 @@ export class EditCourseComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,5 +31,20 @@ export class EditCourseComponent implements OnInit {
       const cursoId = +params['id'];
       console.log(cursoId);
     });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/courses']);
+  }
+
+  saveCurso(): void {
+    if (this.form.valid) {
+      console.log('Salvo');
+    } else {
+      alert('Formulário inválido')
+      return;
+    }
+
+    this.router.navigate(['/courses']);
   }
 }
