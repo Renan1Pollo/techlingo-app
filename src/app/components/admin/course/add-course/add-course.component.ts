@@ -2,13 +2,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { InputComponent } from "../../../../shared/input/input.component";
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from "../../sidebar-menu-admin/sidebar-menu-admin.component";
 
 @Component({
-  selector: 'app-add-course',
-  standalone: true,
-  templateUrl: './add-course.component.html',
-  styleUrl: './add-course.component.scss',
-  imports: [InputComponent]
+    selector: 'app-add-course',
+    standalone: true,
+    templateUrl: './add-course.component.html',
+    styleUrl: './add-course.component.scss',
+    imports: [InputComponent, SidebarMenuAdminComponent]
 })
 export class AddCourseComponent implements OnInit {
 

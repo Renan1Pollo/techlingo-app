@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from "../sidebar-menu-admin/sidebar-menu-admin.component";
 
 @Component({
-  selector: 'app-course',
-  standalone: true,
-  imports: [],
-  templateUrl: './course.component.html',
-  styleUrl: './course.component.scss'
+    selector: 'app-course',
+    standalone: true,
+    templateUrl: './course.component.html',
+    styleUrl: './course.component.scss',
+    imports: [SidebarMenuAdminComponent]
 })
 export class CourseComponent {
 

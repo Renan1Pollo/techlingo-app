@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from "../../../../shared/input/input.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from "../../sidebar-menu-admin/sidebar-menu-admin.component";
 
 @Component({
   selector: 'app-edit-course',
   standalone: true,
   templateUrl: './edit-course.component.html',
   styleUrl: './edit-course.component.scss',
-  imports: [InputComponent]
+  imports: [InputComponent, SidebarMenuAdminComponent]
 })
 export class EditCourseComponent implements OnInit {
 
