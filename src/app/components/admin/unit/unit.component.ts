@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from "../sidebar-menu-admin/sidebar-menu-admin.component";
 
 @Component({
-  selector: 'app-unit',
-  standalone: true,
-  imports: [],
-  templateUrl: './unit.component.html',
-  styleUrl: './unit.component.scss'
+    selector: 'app-unit',
+    standalone: true,
+    templateUrl: './unit.component.html',
+    styleUrl: './unit.component.scss',
+    imports: [SidebarMenuAdminComponent]
 })
 export class UnitComponent {
 
@@ -22,7 +23,7 @@ export class UnitComponent {
   }
 
   deleteUnidade(unidadeId: number): void {
-    this.response = confirm("Você tem certeza que deseja excluir esse curso?");
+    this.response = confirm("Você tem certeza que deseja excluir essa Unidade?");
 
     if (this.response) {
       console.log('Excluido')

@@ -7,6 +7,8 @@ import { EditCourseComponent } from './components/admin/course/edit-course/edit-
 import { UnitComponent } from './components/admin/unit/unit.component';
 import { SidebarMenuAdminComponent } from './components/admin/sidebar-menu-admin/sidebar-menu-admin.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
+import { AddUnitComponent } from './components/admin/unit/add-unit/add-unit.component';
+import { EditUnitComponent } from './components/admin/unit/edit-unit/edit-unit.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -15,8 +17,8 @@ export const routes: Routes = [
     { path: 'courses/add', component: AddCourseComponent },
     { path: 'courses/:id/edit', component: EditCourseComponent },
     { path: 'units', component: UnitComponent },
-    { path: 'units/add', component: AddCourseComponent },
-    { path: 'units/:id/edit', component: EditCourseComponent },
+    { path: 'units/add', component: AddUnitComponent },
+    { path: 'units/:id/edit', component: EditUnitComponent },
     { path: 'teste', component: SidebarMenuAdminComponent },
     { path: 'main', component: SidebarMenuComponent }
 
