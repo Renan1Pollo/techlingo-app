@@ -1,0 +1,41 @@
+<div class="container-fluid d-flex h-100">
+  <app-sidebar-menu-admin></app-sidebar-menu-admin>
+
+  <div class="container form-container">
+    <div style="height: 10%"></div>
+    <h1 class="form-title text-center mb-5">Consulta de Lições</h1>
+    <div class="container d-flex">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Codigo</th>
+            <th scope="col">Nome da Unidade</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Pontos</th>
+            <th scope="col">Indice</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">1</td>
+            <td>Unidade 1</td>
+            <td>Inicio</td>
+            <td>descricao</td>
+            <td>100</td>
+            <td>1</td>
+            <td>
+              <button class="btn btn-primary">
+                <i class="fa fa-edit" (click)="editLesson(1)">Editar</i>
+              </button>
+              <button class="btn btn-danger" style="margin-left: 20px">
+                <i class="fa fa-trash" (click)="deleteLesson(1)">Excluir</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,9 @@ import { SidebarMenuAdminComponent } from './components/admin/sidebar-menu-admin
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { AddUnitComponent } from './components/admin/unit/add-unit/add-unit.component';
 import { EditUnitComponent } from './components/admin/unit/edit-unit/edit-unit.component';
+import { LessonComponent } from './components/admin/lesson/lesson.component';
+import { AddLessonComponent } from './components/admin/lesson/add-lesson/add-lesson.component';
+import { EditLessonComponent } from './components/admin/lesson/edit-lesson/edit-lesson.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -20,6 +23,9 @@ export const routes: Routes = [
     { path: 'units/add', component: AddUnitComponent },
     { path: 'units/:id/edit', component: EditUnitComponent },
     { path: 'teste', component: SidebarMenuAdminComponent },
-    { path: 'main', component: SidebarMenuComponent }
+    { path: 'main', component: SidebarMenuComponent },
+    { path: 'lessons', component: LessonComponent },
+    { path: 'lessons/add', component: AddLessonComponent },
+    { path: 'lessons/:id/edit', component: EditLessonComponent },
 
 ];
