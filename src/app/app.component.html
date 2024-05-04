@@ -1,5 +1,21 @@
-<div class="container-fluid h-100 p-0 m-0">
-  <router-outlet></router-outlet>
+<div class="container-fluid d-flex h-100 p-0 m-0">
+  <app-sidebar-menu></app-sidebar-menu>
+  <div class="d-flex flex-column align-items-center w-100">
+    <div style="width: 40%;">
+      <div style="height: 4rem;"></div>
+      <div class="bg-primary" style="height: 60%; width: 100%;">
+        <h3 class="course-info">Seção 1, Unidade1</h3>
+        <p>Titulo da Unidade</p>
+      </div>
+    </div>
+
+    <div class="container-lessons">
+        <div class="here">
+          <h1>Você está aqui</h1>
+          <div>Lição 1</div>
+        </div>
+    </div>
+  </div>
 </div>
 
-
+<!-- <router-outlet></router-outlet> -->
