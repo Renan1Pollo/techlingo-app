@@ -27,5 +27,6 @@ export const routes: Routes = [
     { path: 'lessons', component: LessonComponent },
     { path: 'lessons/add', component: AddLessonComponent },
     { path: 'lessons/:id/edit', component: EditLessonComponent },
+    { path: 'questions', component: LessonComponent },
 
 ];
