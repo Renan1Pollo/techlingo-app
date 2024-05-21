@@ -12,6 +12,8 @@ import { EditUnitComponent } from './components/admin/unit/edit-unit/edit-unit.c
 import { LessonComponent } from './components/admin/lesson/lesson.component';
 import { AddLessonComponent } from './components/admin/lesson/add-lesson/add-lesson.component';
 import { EditLessonComponent } from './components/admin/lesson/edit-lesson/edit-lesson.component';
+import { QuestionComponent } from './components/admin/question/question.component';
+import { AddQuestionComponent } from './components/admin/question/add-question/add-question.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -27,6 +29,7 @@ export const routes: Routes = [
     { path: 'lessons', component: LessonComponent },
     { path: 'lessons/add', component: AddLessonComponent },
     { path: 'lessons/:id/edit', component: EditLessonComponent },
-    { path: 'questions', component: LessonComponent },
+    { path: 'questions', component: QuestionComponent },
+    { path: 'questions/add', component: AddQuestionComponent },
 
 ];
