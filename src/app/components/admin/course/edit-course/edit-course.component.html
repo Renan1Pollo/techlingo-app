@@ -2,9 +2,10 @@
   <app-sidebar-menu-admin></app-sidebar-menu-admin>
 
   <div class="container form-container">
-    <div style="height: 20%;">
-    </div>
-    <h1 class="form-title text-center mb-4">Formulário de Alteração de Curso</h1>
+    <div style="height: 20%"></div>
+    <h1 class="form-title text-center mb-4">
+      Formulário de Alteração de Curso
+    </h1>
     <div class="form">
       <app-input [form]="form" label="Nome" controlName="nome" />
       <app-input [form]="form" label="Descrição" controlName="descricao" />
@@ -20,7 +21,7 @@
         <button
           type="button"
           class="btn btn-primary p-2 mt-2"
-          (click)="saveCurso()"
+          (click)="saveCourse()"
         >
           Salvar
         </button>

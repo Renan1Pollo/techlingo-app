@@ -1,19 +1,18 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { InputComponent } from "../../../../shared/input/input.component";
+import { InputComponent } from '../../../../shared/input/input.component';
 import { Router } from '@angular/router';
-import { SidebarMenuAdminComponent } from "../../sidebar-menu-admin/sidebar-menu-admin.component";
+import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
-    selector: 'app-add-course',
-    standalone: true,
-    templateUrl: './add-course.component.html',
-    styleUrl: './add-course.component.scss',
-    imports: [InputComponent, SidebarMenuAdminComponent]
+  selector: 'app-add-course',
+  standalone: true,
+  templateUrl: './add-course.component.html',
+  styleUrl: './add-course.component.scss',
+  imports: [InputComponent, SidebarMenuAdminComponent],
 })
 export class AddCourseComponent implements OnInit {
-
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router) {}
   form!: FormGroup;
 
   ngOnInit(): void {
@@ -28,15 +27,14 @@ export class AddCourseComponent implements OnInit {
     this.router.navigate(['/courses']);
   }
 
-  saveCurso(): void {
+  saveCourse(): void {
     if (this.form.valid) {
       console.log('Salvo');
     } else {
-      alert('Formulário inválido')
+      alert('Formulário inválido');
       return;
     }
 
     this.router.navigate(['/courses']);
   }
-
 }

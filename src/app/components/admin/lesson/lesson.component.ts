@@ -14,16 +14,16 @@ export class LessonComponent {
   response!: Boolean;
   constructor(private router: Router) { }
 
-  addUnidade(): void {
+  addLesson(): void {
     this.router.navigate(['/lessons/add']);
   }
 
-  editLesson(unidadeId: number): void {
-    this.router.navigate(['/lessons', unidadeId, 'edit']);
+  editLesson(lessonId: number): void {
+    this.router.navigate(['/lessons', lessonId, 'edit']);
   }
 
-  deleteLesson(unidadeId: number): void {
-    this.response = confirm("Você tem certeza que deseja excluir essa Unidade?");
+  deleteLesson(lessonId: number): void {
+    this.response = confirm("Você tem certeza que deseja excluir essa Licao?");
 
     if (this.response) {
       console.log('Excluido')

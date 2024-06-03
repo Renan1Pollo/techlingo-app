@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarMenuAdminComponent } from "../../sidebar-menu-admin/sidebar-menu-admin.component";
-import { InputComponent } from "../../../../shared/input/input.component";
+import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
+import { InputComponent } from '../../../../shared/input/input.component';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-add-lesson',
-    standalone: true,
-    templateUrl: './add-lesson.component.html',
-    styleUrl: './add-lesson.component.scss',
-    imports: [SidebarMenuAdminComponent, InputComponent]
+  selector: 'app-add-lesson',
+  standalone: true,
+  templateUrl: './add-lesson.component.html',
+  styleUrl: './add-lesson.component.scss',
+  imports: [SidebarMenuAdminComponent, InputComponent],
 })
-export class AddLessonComponent  implements OnInit {
-
-  constructor(private fb: FormBuilder, private router: Router) { }
+export class AddLessonComponent implements OnInit {
+  constructor(private fb: FormBuilder, private router: Router) {}
   form!: FormGroup;
 
   ngOnInit(): void {
@@ -34,7 +33,7 @@ export class AddLessonComponent  implements OnInit {
     if (this.form.valid) {
       console.log('Salvo');
     } else {
-      alert('Formulário inválido')
+      alert('Formulário inválido');
       return;
     }
 
