@@ -14,6 +14,7 @@ import { AddLessonComponent } from './components/admin/lesson/add-lesson/add-les
 import { EditLessonComponent } from './components/admin/lesson/edit-lesson/edit-lesson.component';
 import { QuestionComponent } from './components/admin/question/question.component';
 import { AddQuestionComponent } from './components/admin/question/add-question/add-question.component';
+import { EditQuestionComponent } from './components/admin/question/edit-question/edit-question.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -31,5 +32,6 @@ export const routes: Routes = [
     { path: 'lessons/:id/edit', component: EditLessonComponent },
     { path: 'questions', component: QuestionComponent },
     { path: 'questions/add', component: AddQuestionComponent },
+    { path: 'questions/:id/edit', component: EditQuestionComponent },
 
 ];
