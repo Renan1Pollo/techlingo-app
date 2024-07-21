@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AddCourseComponent } from './components/admin/course/add-course/add-course.component';
 import { CourseComponent } from './components/admin/course/course.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { EditCourseComponent } from './components/admin/course/edit-course/edit-course.component';
 import { UnitComponent } from './components/admin/unit/unit.component';
 import { SidebarMenuAdminComponent } from './components/admin/sidebar-menu-admin/sidebar-menu-admin.component';

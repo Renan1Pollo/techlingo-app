@@ -2,9 +2,9 @@
   <div class="form-container">
     <h1 class="form-title text-center mb-4">Entrar</h1>
     <div>
-      <app-input [form] = "form" label="E-mail/Usuario" controlName="user"/>
+      <app-input [form] = "form" label="E-mail/Usuario" controlName="email"/>
       <app-input [form] = "form" label="Senha" controlName="password" />
-      <button type="button" class="btn btn-primary p-2 mt-4 w-100" (click)="printForm()">ENTRAR</button>
+      <button type="button" class="btn btn-primary p-2 mt-4 w-100" (click)="submit()">ENTRAR</button>
     </div>
   </div>
 </div>
