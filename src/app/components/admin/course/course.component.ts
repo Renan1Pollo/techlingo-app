@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CourseService } from '../../../services/course.service';
+import { Course } from '../../../types/Course.type';
 import { SidebarMenuAdminComponent } from '../sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
@@ -7,11 +10,17 @@ import { SidebarMenuAdminComponent } from '../sidebar-menu-admin/sidebar-menu-ad
   standalone: true,
   templateUrl: './course.component.html',
   styleUrl: './course.component.scss',
-  imports: [SidebarMenuAdminComponent],
+  imports: [SidebarMenuAdminComponent, CommonModule],
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit {
   response!: Boolean;
-  constructor(private router: Router) {}
+  courses!: Course[];
+
+  constructor(private router: Router, private service: CourseService) {}
+
+  ngOnInit(): void {
+    this.getCourseData();
+  }
 
   addCourse(): void {
     this.router.navigate(['/courses/add']);
@@ -25,7 +34,17 @@ export class CourseComponent {
     this.response = confirm('Você tem certeza que deseja excluir esse Curso?');
 
     if (this.response) {
-      console.log('Excluido');
+      this.service.deleteCourse(courseId).subscribe(() => {
+        alert('Curso excluído!');
+        this.getCourseData();
+      });
     }
+  }
+
+  getCourseData(): void {
+    this.courses = [];
+    this.service.getAllCourses().subscribe((data: Course[]) => {
+      this.courses = data;
+    });
   }
 }

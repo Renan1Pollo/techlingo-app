@@ -3,33 +3,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from '../../../../shared/input/input.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CourseService } from '../../../../services/course.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-course',
   standalone: true,
   templateUrl: './edit-course.component.html',
   styleUrl: './edit-course.component.scss',
-  imports: [InputComponent, SidebarMenuAdminComponent],
+  imports: [InputComponent, SidebarMenuAdminComponent, CommonModule],
 })
 export class EditCourseComponent implements OnInit {
   form!: FormGroup;
+  cursoId!: number;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private service: CourseService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nome: [null, [Validators.required]],
-      descricao: [null, Validators.required],
+      name: [null, [Validators.required]],
+      description: [null, Validators.required],
       image: [null, Validators.required],
     });
 
     this.route.params.subscribe((params) => {
-      const cursoId = +params['id'];
-      console.log(cursoId);
+      this.cursoId = +params['id'];
+      console.log(this.cursoId);
     });
   }
 
@@ -38,13 +43,29 @@ export class EditCourseComponent implements OnInit {
   }
 
   saveCourse(): void {
-    if (this.form.valid) {
-      console.log('Salvo');
-    } else {
-      alert('Formulário inválido');
+    if (this.form.invalid) {
+      alert('Preencha todos os campos corretamente!');
       return;
     }
 
-    this.router.navigate(['/courses']);
+    const data = this.getCourseData();
+    this.service.updateCourse(data).subscribe({
+      next: (response: any) => {
+        alert('Curso Salvo com sucesso!');
+        this.goBack();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error updating Course', error);
+      },
+    });
+  }
+
+  getCourseData() {
+    return {
+      id: this.cursoId,
+      name: this.form.value.name,
+      description: this.form.value.description,
+      image: this.form.value.image,
+    };
   }
 }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { InputComponent } from '../../../../shared/input/input.component';
 import { Router } from '@angular/router';
 import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
+import { CourseService } from '../../../../services/course.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-course',
@@ -12,13 +14,18 @@ import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu
   imports: [InputComponent, SidebarMenuAdminComponent],
 })
 export class AddCourseComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router) {}
   form!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private service: CourseService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nome: [null, [Validators.required]],
-      descricao: [null, Validators.required],
+      name: [null, [Validators.required]],
+      description: [null, Validators.required],
       image: [null, Validators.required],
     });
   }
@@ -28,13 +35,28 @@ export class AddCourseComponent implements OnInit {
   }
 
   saveCourse(): void {
-    if (this.form.valid) {
-      console.log('Salvo');
-    } else {
-      alert('Formulário inválido');
+    if (this.form.invalid) {
+      alert('Preencha todos os campos corretamente!');
       return;
     }
 
-    this.router.navigate(['/courses']);
+    const data = this.getCourseData();
+    this.service.createCourse(data).subscribe({
+      next: (response: any) => {
+        alert('Curso Criado com sucesso!');
+        this.goBack();
+      }, error: (error: HttpErrorResponse) => {
+        console.error('Error posting Course', error);
+      },
+    });
+  }
+
+  getCourseData() {
+    return {
+      id: null,
+      name: this.form.value.name,
+      description: this.form.value.description,
+      image: this.form.value.image
+    };
   }
 }
