@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { env } from '../../environment/environment';
 import { Observable } from 'rxjs';
+import { env } from '../../environment/environment';
 import { Course } from '../types/Course.type';
 
 @Injectable({
@@ -24,5 +24,10 @@ export class CourseService {
 
   getAllCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(env.courseApiUrl);
+  }
+
+  findCourseByName(name: string): Observable<Course> {
+    const params = new HttpParams().set('name', name);
+    return this.http.get<Course>(`${env.courseApiUrl}/search`, { params });
   }
 }

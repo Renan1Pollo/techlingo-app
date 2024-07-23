@@ -1,0 +1,6 @@
+<div class="form-floating mb-3" [formGroup]="form">
+  <select class="form-select" id="floatingSelect" [formControlName]="controlName" (change)="onSelectionChange($event)">
+    <option *ngFor="let value of values" [value]="value">{{ value }}</option>
+  </select>
+  <label for="floatingSelect" class="fs-6">{{ label }}</label>
+</div>

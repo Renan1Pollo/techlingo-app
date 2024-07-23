@@ -18,19 +18,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">1</td>
-            <td>Curso de Programação Personalizado</td>
-            <td>Inicio</td>
-            <td>descricao</td>
-            <td>100</td>
-            <td>1</td>
+          <tr *ngFor="let unit of units">
+            <td scope="row">{{ unit.id }}</td>
+            <td>{{ unit.course.name }}</td>
+            <td>{{ unit.title }}</td>
+            <td>{{ unit.description }}</td>
+            <td>{{ unit.points }}</td>
+            <td>{{ unit.index }}</td>
             <td>
               <button class="btn btn-primary">
-                <i class="fa fa-edit" (click)="editUnidade(1)">Editar</i>
+                <i class="fa fa-edit" (click)="editUnit(unit.id!)">Editar</i>
               </button>
               <button class="btn btn-danger" style="margin-left: 20px">
-                <i class="fa fa-trash" (click)="deleteUnidade(1)">Excluir</i>
+                <i class="fa fa-trash" (click)="deleteUnit(unit.id!)">Excluir</i>
               </button>
             </td>
           </tr>
