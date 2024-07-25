@@ -1,8 +1,8 @@
-import { Course } from './Course.type';
+import { Unit } from './Unit.type';
 
-export type Unit = {
+export type Lesson = {
   id: number | null;
-  course: Course;
+  unit: Unit;
   title: string;
   description: string;
   points: number;
