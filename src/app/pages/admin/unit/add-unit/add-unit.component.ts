@@ -1,29 +1,27 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../../../services/course.service';
-import { UnitService } from '../../../../services/unit.service';
+import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 import { InputComponent } from '../../../../shared/input/input.component';
-import { Course } from '../../../../types/Course.type';
-import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
 import { SelectionInputComponent } from "../../../../shared/selection-input/selection-input.component";
+import { Course } from '../../../../types/Course.type';
+import { CourseService } from './../../../../services/course.service';
+import { UnitService } from './../../../../services/unit.service';
 
 @Component({
-  selector: 'app-edit-unit',
+  selector: 'app-add-unit',
   standalone: true,
-  templateUrl: './edit-unit.component.html',
-  styleUrl: './edit-unit.component.scss',
-  imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent],
+  templateUrl: './add-unit.component.html',
+  styleUrl: './add-unit.component.scss',
+  imports: [InputComponent, SidebarMenuAdminComponent, SelectionInputComponent],
 })
-export class EditUnitComponent implements OnInit {
+export class AddUnitComponent implements OnInit {
   courses!: Course[];
   coursesName!: string[];
   form!: FormGroup;
-  unitId!: number;
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
     private courseService: CourseService,
@@ -39,11 +37,6 @@ export class EditUnitComponent implements OnInit {
       index: [null, Validators.required],
     });
 
-    this.route.params.subscribe((params) => {
-      this.unitId = +params['id'];
-      console.log(this.unitId);
-    });
-
     this.getCourseData();
   }
 
@@ -53,6 +46,7 @@ export class EditUnitComponent implements OnInit {
 
   saveUnit(): void {
     if (this.form.invalid) {
+      console.log(this.form)
       alert('Preencha todos os campos corretamente!');
       return;
     }
@@ -66,7 +60,7 @@ export class EditUnitComponent implements OnInit {
         }
 
         const data = {
-          id: this.unitId,
+          id: null,
           course: course,
           title: this.form.value.title,
           description: this.form.value.description,
@@ -74,13 +68,14 @@ export class EditUnitComponent implements OnInit {
           index: this.form.value.index,
         };
 
-        this.service.updateUnit(data).subscribe({
+        console.log(data)
+        this.service.createUnit(data).subscribe({
           next: (response: any) => {
-            alert('Unidade Atualizada com sucesso!');
+            alert('Unidade Criada com sucesso!');
             this.goBack();
           },
           error: (error: HttpErrorResponse) => {
-            console.error('Error updating Unit', error);
+            console.error('Error posting Unit', error);
           },
         });
       },
@@ -88,6 +83,19 @@ export class EditUnitComponent implements OnInit {
         console.error('Error finding course', error);
       },
     });
+  }
+
+  getUnitData() {
+    const course = this.courseService.findCourseByName(this.form.value.course);
+
+    return {
+      id: null,
+      course: course,
+      title: this.form.value.title,
+      description: this.form.value.description,
+      points: this.form.value.points,
+      index: this.form.value.index,
+    };
   }
 
   getCourseData(): void {

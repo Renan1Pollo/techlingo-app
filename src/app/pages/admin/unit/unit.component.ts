@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 import { UnitService } from '../../../services/unit.service';
 import { Unit } from '../../../types/Unit.type';
-import { SidebarMenuAdminComponent } from '../sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
   selector: 'app-unit',

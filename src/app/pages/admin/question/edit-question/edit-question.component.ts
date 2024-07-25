@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarMenuAdminComponent } from "../../sidebar-menu-admin/sidebar-menu-admin.component";
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from "../../../../shared/input/input.component";
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
     selector: 'app-edit-question',

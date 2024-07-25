@@ -1,37 +1,36 @@
 import { Routes } from '@angular/router';
-import { AddCourseComponent } from './components/admin/course/add-course/add-course.component';
-import { CourseComponent } from './components/admin/course/course.component';
+import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { EditCourseComponent } from './components/admin/course/edit-course/edit-course.component';
-import { UnitComponent } from './components/admin/unit/unit.component';
-import { SidebarMenuAdminComponent } from './components/admin/sidebar-menu-admin/sidebar-menu-admin.component';
+import { CourseComponent } from './pages/admin/course/course.component';
+import { AddCourseComponent } from './pages/admin/course/add-course/add-course.component';
+import { EditCourseComponent } from './pages/admin/course/edit-course/edit-course.component';
+import { UnitComponent } from './pages/admin/unit/unit.component';
+import { AddUnitComponent } from './pages/admin/unit/add-unit/add-unit.component';
+import { EditUnitComponent } from './pages/admin/unit/edit-unit/edit-unit.component';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
-import { AddUnitComponent } from './components/admin/unit/add-unit/add-unit.component';
-import { EditUnitComponent } from './components/admin/unit/edit-unit/edit-unit.component';
-import { LessonComponent } from './components/admin/lesson/lesson.component';
-import { AddLessonComponent } from './components/admin/lesson/add-lesson/add-lesson.component';
-import { EditLessonComponent } from './components/admin/lesson/edit-lesson/edit-lesson.component';
-import { QuestionComponent } from './components/admin/question/question.component';
-import { AddQuestionComponent } from './components/admin/question/add-question/add-question.component';
-import { EditQuestionComponent } from './components/admin/question/edit-question/edit-question.component';
+import { LessonComponent } from './pages/admin/lesson/lesson.component';
+import { AddLessonComponent } from './pages/admin/lesson/add-lesson/add-lesson.component';
+import { EditLessonComponent } from './pages/admin/lesson/edit-lesson/edit-lesson.component';
+import { QuestionComponent } from './pages/admin/question/question.component';
+import { AddQuestionComponent } from './pages/admin/question/add-question/add-question.component';
+import { EditQuestionComponent } from './pages/admin/question/edit-question/edit-question.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'courses', component: CourseComponent },
-    { path: 'courses/add', component: AddCourseComponent },
-    { path: 'courses/:id/edit', component: EditCourseComponent },
-    { path: 'units', component: UnitComponent },
-    { path: 'units/add', component: AddUnitComponent },
-    { path: 'units/:id/edit', component: EditUnitComponent },
-    { path: 'teste', component: SidebarMenuAdminComponent },
-    { path: 'main', component: SidebarMenuComponent },
-    { path: 'lessons', component: LessonComponent },
-    { path: 'lessons/add', component: AddLessonComponent },
-    { path: 'lessons/:id/edit', component: EditLessonComponent },
-    { path: 'questions', component: QuestionComponent },
-    { path: 'questions/add', component: AddQuestionComponent },
-    { path: 'questions/:id/edit', component: EditQuestionComponent },
-
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'courses', component: CourseComponent },
+  { path: 'courses/add', component: AddCourseComponent },
+  { path: 'courses/:id/edit', component: EditCourseComponent },
+  { path: 'units', component: UnitComponent },
+  { path: 'units/add', component: AddUnitComponent },
+  { path: 'units/:id/edit', component: EditUnitComponent },
+  { path: 'main', component: SidebarMenuComponent },
+  { path: 'lessons', component: LessonComponent },
+  { path: 'lessons/add', component: AddLessonComponent },
+  { path: 'lessons/:id/edit', component: EditLessonComponent },
+  { path: 'questions', component: QuestionComponent },
+  { path: 'questions/add', component: AddQuestionComponent },
+  { path: 'questions/:id/edit', component: EditQuestionComponent },
 ];

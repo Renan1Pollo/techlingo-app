@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SidebarMenuAdminComponent } from "../sidebar-menu-admin/sidebar-menu-admin.component";
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
     selector: 'app-question',

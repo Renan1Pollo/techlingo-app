@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InputComponent } from '../../../../shared/input/input.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
-import { HttpErrorResponse } from '@angular/common/http';
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 import { CourseService } from '../../../../services/course.service';
-import { CommonModule } from '@angular/common';
+import { InputComponent } from '../../../../shared/input/input.component';
 
 @Component({
   selector: 'app-edit-course',

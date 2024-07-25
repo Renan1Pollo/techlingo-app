@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     this.service.register(data).subscribe({
       next: (response: any) => {
         alert('Usuario criado com sucesso!');
-        // this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 400) {
@@ -51,6 +51,10 @@ export class RegisterComponent implements OnInit {
         }
       },
     });
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 
   getUserData() {

@@ -1,32 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
 import { InputComponent } from '../../../../shared/input/input.component';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
-  selector: 'app-add-lesson',
+  selector: 'app-add-question',
   standalone: true,
-  templateUrl: './add-lesson.component.html',
-  styleUrl: './add-lesson.component.scss',
-  imports: [SidebarMenuAdminComponent, InputComponent],
+  templateUrl: './add-question.component.html',
+  styleUrl: './add-question.component.scss',
+  imports: [InputComponent, SidebarMenuAdminComponent],
 })
-export class AddLessonComponent implements OnInit {
+export class AddQuestionComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router) {}
   form!: FormGroup;
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      unidade: [null, [Validators.required]],
-      titulo: [null, Validators.required],
+      licao: [null, [Validators.required]],
       descricao: [null, Validators.required],
-      pontos: [null, Validators.required],
+      tipo: [null, Validators.required],
       indice: [null, Validators.required],
     });
   }
 
   goBack(): void {
-    this.router.navigate(['/lessons']);
+    this.router.navigate(['/questions']);
   }
 
   saveLesson(): void {
@@ -37,6 +36,6 @@ export class AddLessonComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/lessons']);
+    this.router.navigate(['/questions']);
   }
 }

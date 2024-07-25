@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { InputComponent } from '../../shared/input/input.component';
 import { CommonModule } from '@angular/common';
@@ -11,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [InputComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
@@ -39,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.service.login(data).subscribe({
       next: (response: any) => {
         alert('Usuario Logado com sucesso!');
-        // this.router.navigate(['/home']);
+        this.router.navigate(['/home']);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 404) {

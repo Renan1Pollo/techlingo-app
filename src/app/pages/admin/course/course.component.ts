@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
 import { CourseService } from '../../../services/course.service';
 import { Course } from '../../../types/Course.type';
-import { SidebarMenuAdminComponent } from '../sidebar-menu-admin/sidebar-menu-admin.component';
 
 @Component({
   selector: 'app-course',

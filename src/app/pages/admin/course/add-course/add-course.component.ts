@@ -1,10 +1,10 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { InputComponent } from '../../../../shared/input/input.component';
-import { Router } from '@angular/router';
-import { SidebarMenuAdminComponent } from '../../sidebar-menu-admin/sidebar-menu-admin.component';
-import { CourseService } from '../../../../services/course.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
+import { CourseService } from '../../../../services/course.service';
+import { InputComponent } from '../../../../shared/input/input.component';
 
 @Component({
   selector: 'app-add-course',
