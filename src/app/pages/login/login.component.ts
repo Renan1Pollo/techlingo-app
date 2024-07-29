@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  redirectToRegister() {
+    this.router.navigate(['/register']);
+  }
+
   getUserData() {
     return {
       email: this.form.value.email,
