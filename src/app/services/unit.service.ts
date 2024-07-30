@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
@@ -24,5 +24,10 @@ export class UnitService {
 
   getAllUnits(): Observable<Unit[]> {
     return this.http.get<Unit[]>(env.unitApiUrl);
+  }
+
+  findUnitByTitle(title: string): Observable<Unit> {
+    const params = new HttpParams().set('title', title);
+    return this.http.get<Unit>(`${env.unitApiUrl}/search`, { params });
   }
 }

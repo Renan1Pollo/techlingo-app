@@ -5,16 +5,16 @@
     <div style="height: 10%"></div>
     <h1 class="form-title text-center mb-4">Editar Lição</h1>
     <div class="form">
-      <app-input [form]="form" label="Unidade" controlName="unidade" />
-      <app-input [form]="form" label="Titulo" controlName="titulo" />
-      <app-input [form]="form" label="Descrição" controlName="descricao" />
-      <app-input [form]="form" label="Pontos" controlName="pontos" />
-      <app-input [form]="form" label="Indice" controlName="indice" />
+      <app-selection-input [form]="form" label="Unidade" controlName="unit" [values]="unitsTitle" />
+      <app-input [form]="form" label="Titulo" controlName="title" />
+      <app-input [form]="form" label="Descrição" controlName="description" />
+      <app-input [form]="form" label="Pontos" controlName="points" />
+      <app-input [form]="form" label="Indice" controlName="index" />
       <div class="d-flex justify-content-between">
-        <button type="button" class="btn btn-danger p-2a mt-2" (click)="goBack()" >
+        <button type="button" class="btn btn-danger p-2a mt-2" (click)="goBack()">
           Voltar
         </button>
-        <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveLesson()" >
+        <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveLesson()">
           Salvar
         </button>
       </div>

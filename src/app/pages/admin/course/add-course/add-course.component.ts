@@ -45,7 +45,8 @@ export class AddCourseComponent implements OnInit {
       next: (response: any) => {
         alert('Curso Criado com sucesso!');
         this.goBack();
-      }, error: (error: HttpErrorResponse) => {
+      },
+      error: (error: HttpErrorResponse) => {
         console.error('Error posting Course', error);
       },
     });
@@ -56,7 +57,7 @@ export class AddCourseComponent implements OnInit {
       id: null,
       name: this.form.value.name,
       description: this.form.value.description,
-      image: this.form.value.image
+      image: this.form.value.image,
     };
   }
 }
