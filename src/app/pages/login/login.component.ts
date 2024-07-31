@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.service.login(data).subscribe({
       next: (response: any) => {
         alert('Usuario Logado com sucesso!');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/learn']);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 404) {
