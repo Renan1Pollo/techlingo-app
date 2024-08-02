@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
 import { Unit } from '../types/Unit.type';
+import { Course } from '../types/Course.type';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,10 @@ export class UnitService {
   findUnitByTitle(title: string): Observable<Unit> {
     const params = new HttpParams().set('title', title);
     return this.http.get<Unit>(`${env.unitApiUrl}/search`, { params });
+  }
+
+  findUnitByCourse(courseId: number): Observable<Unit[]> {
+    const params = new HttpParams().set('courseId', courseId.toString());
+    return this.http.get<Unit[]>(`${env.unitApiUrl}/searchCourse`, { params });
   }
 }
