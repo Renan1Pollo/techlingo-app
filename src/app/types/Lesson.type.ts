@@ -8,3 +8,11 @@ export type Lesson = {
   points: number;
   index: number;
 };
+
+export type LessonResponseDTO = {
+  id: number;
+  title: string;
+  description: string;
+  points: number;
+  index: number;
+};

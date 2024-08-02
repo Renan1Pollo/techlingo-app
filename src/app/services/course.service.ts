@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
-import { Course } from '../types/Course.type';
+import { Course, CourseResponseDTO } from '../types/Course.type';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +22,8 @@ export class CourseService {
     return this.http.delete<any>(`${env.courseApiUrl}/${id}`);
   }
 
-  getAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(env.courseApiUrl);
+  getAllCourses(): Observable<CourseResponseDTO[]> {
+    return this.http.get<CourseResponseDTO[]>(env.courseApiUrl);
   }
 
   findCourseByName(name: string): Observable<Course> {
