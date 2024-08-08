@@ -4,4 +4,6 @@ export const env = {
   courseApiUrl: `http://localhost:8080/courses`,
   unitApiUrl: `http://localhost:8080/units`,
   lessonApiUrl: `http://localhost:8080/lessons`,
+  questionApiUrl: `http://localhost:8080/questions`,
+  answerApiUrl: `http://localhost:8080/answers`,
 };
