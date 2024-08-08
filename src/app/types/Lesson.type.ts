@@ -1,3 +1,4 @@
+import { Question, QuestionResponseDTO } from './Question.type';
 import { Unit } from './Unit.type';
 
 export type Lesson = {
@@ -15,4 +16,5 @@ export type LessonResponseDTO = {
   description: string;
   points: number;
   index: number;
+  questionList: QuestionResponseDTO[];
 };
