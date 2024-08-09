@@ -39,7 +39,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/courses']);
+    this.router.navigate(['admin/courses']);
   }
 
   saveCourse(): void {

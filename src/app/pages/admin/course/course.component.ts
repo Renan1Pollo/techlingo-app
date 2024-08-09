@@ -23,11 +23,11 @@ export class CourseComponent implements OnInit {
   }
 
   addCourse(): void {
-    this.router.navigate(['/courses/add']);
+    this.router.navigate(['admin/courses/add']);
   }
 
   editCourse(courseId: number): void {
-    this.router.navigate(['/courses', courseId, 'edit']);
+    this.router.navigate(['admin/courses', courseId, 'edit']);
   }
 
   deleteCourse(courseId: number): void {

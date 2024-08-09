@@ -31,7 +31,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/courses']);
+    this.router.navigate(['admin/courses']);
   }
 
   saveCourse(): void {

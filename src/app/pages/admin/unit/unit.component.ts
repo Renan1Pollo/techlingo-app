@@ -23,11 +23,11 @@ export class UnitComponent implements OnInit {
   }
 
   addUnit(): void {
-    this.router.navigate(['/units/add']);
+    this.router.navigate(['admin/units/add']);
   }
 
   editUnit(unitId: number): void {
-    this.router.navigate(['/units', unitId, 'edit']);
+    this.router.navigate(['admin/units', unitId, 'edit']);
   }
 
   deleteUnit(unitId: number): void {

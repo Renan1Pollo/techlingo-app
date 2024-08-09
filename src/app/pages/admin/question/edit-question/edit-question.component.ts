@@ -36,7 +36,7 @@ export class EditQuestionComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/questions']);
+    this.router.navigate(['admin/questions']);
   }
 
   saveQuestion(): void {

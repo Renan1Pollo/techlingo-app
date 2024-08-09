@@ -14,11 +14,11 @@ export class QuestionComponent {
   constructor(private router: Router) {}
 
   addQuestion(): void {
-    this.router.navigate(['/questions/add']);
+    this.router.navigate(['admin/questions/add']);
   }
 
   editQuestion(questionId: number): void {
-    this.router.navigate(['/questions', questionId, 'edit']);
+    this.router.navigate(['admin/questions', questionId, 'edit']);
   }
 
   deleteQuestion(questionId: number): void {

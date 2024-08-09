@@ -47,7 +47,7 @@ export class EditLessonComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/lessons']);
+    this.router.navigate(['admin/lessons']);
   }
 
   saveLesson(): void {

@@ -48,7 +48,7 @@ export class EditUnitComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/units']);
+    this.router.navigate(['admin/units']);
   }
 
   saveUnit(): void {
