@@ -31,9 +31,4 @@ export class UnitService {
     const params = new HttpParams().set('title', title);
     return this.http.get<Unit>(`${env.unitApiUrl}/search`, { params });
   }
-
-  findUnitByCourse(courseId: number): Observable<Unit[]> {
-    const params = new HttpParams().set('courseId', courseId.toString());
-    return this.http.get<Unit[]>(`${env.unitApiUrl}/searchCourse`, { params });
-  }
 }
