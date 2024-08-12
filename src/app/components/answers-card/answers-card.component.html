@@ -1,0 +1,17 @@
+<div class="card"
+     [ngClass]="{
+       'selected-answer': selectedAnswer === answer && !feedbackMessage,
+       'correct-answer': selectedAnswer === answer && feedbackMessage && selectedAnswer.correct,
+       'incorrect-answer': selectedAnswer === answer && feedbackMessage && !selectedAnswer.correct
+     }"
+     (click)="selectAnswer()"
+     style="max-width: 18rem; border-radius: .7rem; overflow: hidden; cursor: pointer;">
+  <div class="card-body text-center" style="border-bottom-left-radius: .7rem; border-bottom-right-radius: .7rem;">
+    <h5 class="card-title" style="font-size: 1.1rem;">{{ answer.text }}</h5>
+    <div *ngIf="selectedAnswer === answer && feedbackMessage">
+      <p [ngClass]="{'text-success': selectedAnswer.correct, 'text-danger': !selectedAnswer.correct}">
+        {{ feedbackMessage }}
+      </p>
+    </div>
+  </div>
+</div>

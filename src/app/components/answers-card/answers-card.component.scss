@@ -1,0 +1,20 @@
+.selected-answer {
+  background-color: rgba(132, 216, 255, 0.3);
+  color: rgb(76, 170, 247);
+  font-size: .8rem;
+  font-weight: bold;
+}
+
+.correct-answer {
+  background-color: rgba(165, 237, 110, 0.3);
+  color: rgb(115, 185, 60);
+  font-size: .8rem;
+  font-weight: bold;
+}
+
+.incorrect-answer {
+  background-color: rgba(245, 151, 148, 0.3);
+  color: rgba(195, 101, 98, 1);
+  font-size: .8rem;
+  font-weight: bold;
+}
