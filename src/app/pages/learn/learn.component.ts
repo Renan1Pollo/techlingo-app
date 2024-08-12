@@ -4,12 +4,9 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { SidebarMenuComponent } from '../../components/sidebar-menu/sidebar-menu.component';
 import { CourseService } from '../../services/course.service';
-import { Course, CourseResponseDTO } from '../../types/Course.type';
-import { CourseCardComponent } from '../admin/course/course-card/course-card.component';
-import { UnitService } from '../../services/unit.service';
-import { LessonService } from '../../services/lesson.service';
-import { Unit } from '../../types/Unit.type';
-import { Lesson } from '../../types/Lesson.type';
+import { CourseResponseDTO } from '../../types/Course.type';
+import { LessonQuizComponent } from '../lesson/lesson-quiz.component';
+import { CourseCardComponent } from '../../components/course-card/course-card.component';
 
 interface FilterForm {
   locale: FormControl;
@@ -26,7 +23,8 @@ interface FilterForm {
     ReactiveFormsModule,
     CourseCardComponent,
     CommonModule,
-  ],
+    LessonQuizComponent
+],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.scss'],
 })
@@ -35,11 +33,10 @@ export class LearnComponent implements OnInit {
   isModalOpen = false;
   courses!: CourseResponseDTO[];
   selectedCourse: any;
+  selectedLesson: any
 
   constructor(
     private courseService: CourseService,
-    private unitService: UnitService,
-    private lessonService: LessonService
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +62,14 @@ export class LearnComponent implements OnInit {
     this.selectedCourse = course;
     this.isModalOpen = false;
   }
+
+  openLesson(lesson: any) {
+    this.selectedLesson = null;
+    setTimeout(() => {
+      this.selectedLesson = lesson;
+    }, 0);
+  }
+
 
   getCourses(): void {
     this.courses = [];
