@@ -19,6 +19,7 @@ export class LessonQuizComponent implements OnInit {
   feedbackMessage: string | null = null;
   buttonLabel: string = 'Verificar';
   isModalOpen: boolean = true;
+  showHeart: boolean = true;
   currentQuestionIndex: number = 0;
   isQuizCompleted: boolean = false;
 

@@ -1,14 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })
 export class ModalComponent {
   @Input() isModalOpen!: boolean;
+  @Input() showHeart!: boolean;
   @Output() closeModal = new EventEmitter();
 
   close() {
