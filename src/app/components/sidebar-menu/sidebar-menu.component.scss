@@ -42,3 +42,16 @@ img {
 .title-container {
   margin-bottom: 1rem;
 }
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%; /* Move the dropdown to the right of the parent */
+  margin-left: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
