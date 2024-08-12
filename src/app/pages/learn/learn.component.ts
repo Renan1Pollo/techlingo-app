@@ -34,6 +34,7 @@ export class LearnComponent implements OnInit {
   courses!: CourseResponseDTO[];
   selectedCourse: any;
   selectedLesson: any
+  userLives = 5;
 
   constructor(
     private courseService: CourseService,
