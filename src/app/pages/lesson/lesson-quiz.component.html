@@ -1,0 +1,41 @@
+<div class="container-fluid d-flex h-100 p-0 m-0">
+  <app-modal [isModalOpen]="isModalOpen" (closeModal)="toggleModal()">
+    <div class="container mt-5">
+      <div *ngIf="!isQuizCompleted">
+        <div class="row mb-4">
+          <div class="col-12 text-center">
+            <h3 style="font-size: 1.5rem; font-weight: bold;">{{ questions[currentQuestionIndex].description }}</h3>
+          </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 justify-content-center">
+          <div *ngFor="let answer of questions[currentQuestionIndex]?.answerList"
+            class="col d-flex justify-content-center">
+            <app-answers-card
+              [answer]="answer"
+              [selectedAnswer]="selectedAnswer"
+              [feedbackMessage]="feedbackMessage"
+              (answerSelected)="selectAnswer($event)">
+            </app-answers-card>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <button class="btn btn-primary" (click)="verifyAnswer()" [disabled]="!selectedAnswer"
+              style="font-size: 1.1rem;">
+              {{ buttonLabel }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isQuizCompleted" class="text-center">
+        <h3 class="mb-4" style="font-size: 1.5rem; font-weight: bold;">Parabéns por finalizar a lição!</h3>
+        <button class="btn btn-success" (click)="finishLesson()" style="font-size: 1.1rem;">
+          Finalizar
+        </button>
+      </div>
+    </div>
+  </app-modal>
+</div>
