@@ -18,7 +18,7 @@ import { Unit } from '../../../../types/Unit.type';
   imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent],
 })
 export class EditUnitComponent implements OnInit {
-  coursesName!: string[]; // Lista de strings
+  coursesName!: string[];
   form!: FormGroup;
   unitId!: number;
 
@@ -56,7 +56,7 @@ export class EditUnitComponent implements OnInit {
   loadCourses(): void {
     this.courseService.getAllCourses().subscribe({
       next: (courses: Course[]) => {
-        this.coursesName = courses.map(course => course.name); // Extrai apenas os nomes dos cursos
+        this.coursesName = courses.map(course => course.name);
       },
       error: (error: HttpErrorResponse) => this.handleError(error, 'fetching courses'),
     });
