@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
 import { Unit, UnitResponseDTO } from '../types/Unit.type';
-import { Course } from '../types/Course.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnitService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createUnit(data: Unit): Observable<any> {
     return this.http.post<any>(env.unitApiUrl, data);
@@ -29,6 +28,10 @@ export class UnitService {
 
   getAllUnitDetails(): Observable<Unit[]> {
     return this.http.get<Unit[]>(`${env.unitApiUrl}/all`);
+  }
+
+  findUnitById(unitId: number): Observable<Unit> {
+    return this.http.get<Unit>(`${env.unitApiUrl}/${unitId}`);
   }
 
   findUnitByTitle(title: string): Observable<Unit> {

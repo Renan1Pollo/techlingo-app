@@ -11,18 +11,10 @@
       <app-input [form]="form" label="Descrição" controlName="description" />
       <app-input [form]="form" label="Imagem do Curso" controlName="image" />
       <div class="d-flex justify-content-between">
-        <button
-          type="button"
-          class="btn btn-danger p-2 mt-2"
-          (click)="goBack()"
-        >
+        <button type="button" class="btn btn-danger p-2 mt-2" (click)="navigateBack()">
           Voltar
         </button>
-        <button
-          type="button"
-          class="btn btn-primary p-2 mt-2"
-          (click)="saveCourse()"
-        >
+        <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveCourse()">
           Salvar
         </button>
       </div>

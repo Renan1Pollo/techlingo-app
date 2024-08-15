@@ -30,6 +30,10 @@ export class CourseService {
     return this.http.get<Course[]>(`${env.courseApiUrl}/all`);
   }
 
+  findCourseById(courseId: number): Observable<Course> {
+    return this.http.get<Course>(`${env.courseApiUrl}/${courseId}`);
+  }
+
   findCourseByName(name: string): Observable<Course> {
     const params = new HttpParams().set('name', name);
     return this.http.get<Course>(`${env.courseApiUrl}/search`, { params });

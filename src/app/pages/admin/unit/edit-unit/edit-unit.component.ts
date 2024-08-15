@@ -6,19 +6,19 @@ import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-a
 import { CourseService } from '../../../../services/course.service';
 import { UnitService } from '../../../../services/unit.service';
 import { InputComponent } from '../../../../shared/input/input.component';
-import { SelectionInputComponent } from "../../../../shared/selection-input/selection-input.component";
+import { SelectionInputComponent } from '../../../../shared/selection-input/selection-input.component';
 import { Course } from '../../../../types/Course.type';
+import { Unit } from '../../../../types/Unit.type';
 
 @Component({
   selector: 'app-edit-unit',
   standalone: true,
   templateUrl: './edit-unit.component.html',
-  styleUrl: './edit-unit.component.scss',
+  styleUrls: ['./edit-unit.component.scss'],
   imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent],
 })
 export class EditUnitComponent implements OnInit {
-  courses!: Course[];
-  coursesName!: string[];
+  coursesName!: string[]; // Lista de strings
   form!: FormGroup;
   unitId!: number;
 
@@ -27,28 +27,56 @@ export class EditUnitComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private courseService: CourseService,
-    private service: UnitService
-  ) {}
+    private unitService: UnitService
+  ) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.extractUnitIdFromRoute();
+    this.loadCourses();
+    this.loadUnitData();
+  }
+
+  initializeForm(): void {
     this.form = this.fb.group({
-      course: [null, [Validators.required]],
+      course: [null, Validators.required],
       title: [null, Validators.required],
       description: [null, Validators.required],
       points: [null, Validators.required],
       index: [null, Validators.required],
     });
-
-    this.route.params.subscribe((params) => {
-      this.unitId = +params['id'];
-      console.log(this.unitId);
-    });
-
-    this.getCourseData();
   }
 
-  goBack(): void {
-    this.router.navigate(['admin/units']);
+  extractUnitIdFromRoute(): void {
+    this.route.params.subscribe((params) => {
+      this.unitId = +params['id'];
+    });
+  }
+
+  loadCourses(): void {
+    this.courseService.getAllCourses().subscribe({
+      next: (courses: Course[]) => {
+        this.coursesName = courses.map(course => course.name); // Extrai apenas os nomes dos cursos
+      },
+      error: (error: HttpErrorResponse) => this.handleError(error, 'fetching courses'),
+    });
+  }
+
+  loadUnitData(): void {
+    this.unitService.findUnitById(this.unitId).subscribe({
+      next: (unit: Unit) => this.populateForm(unit),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'fetching unit data'),
+    });
+  }
+
+  populateForm(unit: Unit): void {
+    this.form.patchValue({
+      course: unit.course.name,
+      title: unit.title,
+      description: unit.description,
+      points: unit.points,
+      index: unit.index,
+    });
   }
 
   saveUnit(): void {
@@ -57,48 +85,46 @@ export class EditUnitComponent implements OnInit {
       return;
     }
 
-    const courseName = this.form.value.course;
-    this.courseService.findCourseByName(courseName).subscribe({
-      next: (course: Course) => {
-        if (!course) {
-          alert('Curso não encontrado!');
-          return;
-        }
-
-        const data = {
-          id: this.unitId,
-          course: course,
-          title: this.form.value.title,
-          description: this.form.value.description,
-          points: this.form.value.points,
-          index: this.form.value.index,
-        };
-
-        this.service.updateUnit(data).subscribe({
-          next: (response: any) => {
-            alert('Unidade Atualizada com sucesso!');
-            this.goBack();
-          },
-          error: (error: HttpErrorResponse) => {
-            console.error('Error updating Unit', error);
-          },
-        });
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error finding course', error);
-      },
+    this.courseService.findCourseByName(this.form.value.course).subscribe({
+      next: (course: Course) => this.updateUnit(course),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'finding course'),
     });
   }
 
-  getCourseData(): void {
-    this.courseService.getAllCoursesDetails().subscribe({
-      next: (data: Course[]) => {
-        this.courses = data;
-        this.coursesName = this.courses.map(course => course.name);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error fetching courses', error);
-      }
+  updateUnit(course: Course): void {
+    if (!course) {
+      alert('Curso não encontrado!');
+      return;
+    }
+
+    const unitData = this.getFormData(course);
+    this.unitService.updateUnit(unitData).subscribe({
+      next: () => this.handleSuccess(),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'updating unit'),
     });
+  }
+
+  getFormData(course: Course): Unit {
+    return {
+      id: this.unitId,
+      course: course,
+      title: this.form.value.title,
+      description: this.form.value.description,
+      points: this.form.value.points,
+      index: this.form.value.index,
+    };
+  }
+
+  handleSuccess(): void {
+    alert('Unidade atualizada com sucesso!');
+    this.navigateBack();
+  }
+
+  handleError(error: HttpErrorResponse, context: string): void {
+    console.error(`Error ${context}`, error);
+  }
+
+  navigateBack(): void {
+    this.router.navigate(['admin/units']);
   }
 }
