@@ -1,14 +1,13 @@
 <div class="container-fluid d-flex h-100">
   <app-sidebar-menu-admin></app-sidebar-menu-admin>
 
-  <div class="container form-container">
-    <div style="height: 10%"></div>
-    <h1 class="form-title text-center mb-5">Consulta de Cursos</h1>
-    <div class="container d-flex">
-      <table class="table">
-        <thead>
+  <div class="container">
+    <h1 class="text-center my-5">Consulta de Cursos</h1>
+    <div class="table-responsive">
+      <table class="table table-striped text-center">
+        <thead class="thead-dark">
           <tr>
-            <th scope="col">Codigo</th>
+            <th scope="col">Código</th>
             <th scope="col">Nome do Curso</th>
             <th scope="col">Descrição</th>
             <th scope="col">Ações</th>
@@ -16,15 +15,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let course of courses">
-            <td scope="row">{{ course.id }}</td>
+            <td>{{ course.id }}</td>
             <td>{{ course.name }}</td>
             <td>{{ course.description }}</td>
             <td>
-              <button class="btn btn-primary" (click)="editCourse(course.id!)">
-                <i class="fa fa-edit"></i> Editar
+              <button class="btn btn-primary btn-sm mx-2" (click)="editCourse(course.id!)">
+                <i class="fas fa-edit"></i> Editar
               </button>
-              <button class="btn btn-danger" style="margin-left: 20px" (click)="deleteCourse(course.id!)">
-                <i class="fa fa-trash"></i> Excluir
+              <button class="btn btn-danger btn-sm mx-2" (click)="deleteCourse(course.id!)">
+                <i class="fas fa-trash"></i> Excluir
               </button>
             </td>
           </tr>
