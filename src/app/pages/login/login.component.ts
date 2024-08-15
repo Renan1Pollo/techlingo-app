@@ -10,6 +10,7 @@ import { InputComponent } from '../../shared/input/input.component';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../types/User.type';
 
 @Component({
   selector: 'app-login',
@@ -42,15 +43,15 @@ export class LoginComponent implements OnInit {
 
     const data = this.getUserData();
     this.service.login(data).subscribe({
-      next: (response: any) => {
-        alert('Usuario Logado com sucesso!');
+      next: (response: User) => {
+        localStorage.setItem('user', JSON.stringify(response));
         this.router.navigate(['/learn']);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 404) {
-          alert('Usuário nao encontrado');
+          alert('Usuário não encontrado');
         } else {
-          console.error('Error posting event', error);
+          console.error('Erro ao autenticar', error);
         }
       },
     });

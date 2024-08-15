@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { InputComponent } from '../../shared/input/input.component';
+import { User } from '../../types/User.type';
 
 @Component({
   selector: 'app-register',
@@ -39,15 +40,15 @@ export class RegisterComponent implements OnInit {
 
     const data = this.getUserData();
     this.service.register(data).subscribe({
-      next: (response: any) => {
-        alert('Usuario criado com sucesso!');
+      next: (response: User) => {
+        localStorage.setItem('user', JSON.stringify(response));
         this.router.navigate(['/learn']);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 400) {
-          alert('Usuário ja cadastrado com esse e-mail');
+          alert('Usuário já existe');
         } else {
-          console.error('Error posting event', error);
+          console.error('Erro ao cadastrar', error);
         }
       },
     });

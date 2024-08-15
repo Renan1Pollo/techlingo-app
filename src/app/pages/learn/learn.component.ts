@@ -1,3 +1,4 @@
+import { User } from './../../types/User.type';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -34,7 +35,7 @@ export class LearnComponent implements OnInit {
   courses!: CourseResponseDTO[];
   selectedCourse: any;
   selectedLesson: any
-  userLives = 5;
+  user!: User;
 
   constructor(
     private courseService: CourseService,
@@ -49,6 +50,11 @@ export class LearnComponent implements OnInit {
 
     this.getCourses();
     this.isModalOpen = true;
+
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
   }
 
   toggleModal() {

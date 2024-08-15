@@ -4,5 +4,5 @@ export type User = {
   email: string;
   password: string;
   score: number;
-  lifes: number;
+  lives: number;
 };
