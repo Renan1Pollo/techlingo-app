@@ -1,4 +1,5 @@
 export const env = {
+  userApiUrl: `http://localhost:8080/users`,
   loginApiUrl: `http://localhost:8080/auth/login`,
   registerApiUrl: `http://localhost:8080/auth/register`,
   courseApiUrl: `http://localhost:8080/courses`,
