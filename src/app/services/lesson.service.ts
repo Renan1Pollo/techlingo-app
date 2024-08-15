@@ -29,4 +29,8 @@ export class LessonService {
   getAllLessonDetails(): Observable<Lesson[]> {
     return this.http.get<Lesson[]>(`${env.lessonApiUrl}/all`);
   }
+
+  findLessonById(lessonId: number): Observable<Lesson> {
+    return this.http.get<Lesson>(`${env.lessonApiUrl}/${lessonId}`);
+  }
 }

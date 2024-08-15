@@ -8,46 +8,77 @@ import { UnitService } from '../../../../services/unit.service';
 import { InputComponent } from '../../../../shared/input/input.component';
 import { SelectionInputComponent } from '../../../../shared/selection-input/selection-input.component';
 import { Unit } from '../../../../types/Unit.type';
+import { Lesson } from '../../../../types/Lesson.type';
 
 @Component({
   selector: 'app-edit-lesson',
   standalone: true,
   templateUrl: './edit-lesson.component.html',
-  styleUrl: './edit-lesson.component.scss',
+  styleUrls: ['./edit-lesson.component.scss'],
   imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent],
 })
 export class EditLessonComponent implements OnInit {
   form!: FormGroup;
   units!: Unit[];
-  unitsTitle!: string[];
+  unitTitles!: string[];
   lessonId!: number;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private service: LessonService,
+    private lessonService: LessonService,
     private unitService: UnitService
   ) {}
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.extractLessonId();
+    this.loadUnits();
+    this.loadLessonData();
+  }
+
+  private initializeForm(): void {
     this.form = this.fb.group({
-      unit: [null, [Validators.required]],
+      unit: [null, Validators.required],
       title: [null, Validators.required],
       description: [null, Validators.required],
       points: [null, Validators.required],
       index: [null, Validators.required],
     });
+  }
 
+  private extractLessonId(): void {
     this.route.params.subscribe((params) => {
       this.lessonId = +params['id'];
     });
-
-    this.getUnitData();
   }
 
-  goBack(): void {
-    this.router.navigate(['admin/lessons']);
+  private loadUnits(): void {
+    this.unitService.getAllUnitDetails().subscribe({
+      next: (units: Unit[]) => {
+        this.units = units;
+        this.unitTitles = units.map((unit) => unit.title);
+      },
+      error: (error: HttpErrorResponse) => this.handleError(error, 'loading units'),
+    });
+  }
+
+  private loadLessonData(): void {
+    this.lessonService.findLessonById(this.lessonId).subscribe({
+      next: (lesson: Lesson) => this.populateForm(lesson),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'loading lesson data'),
+    });
+  }
+
+  private populateForm(lesson: Lesson): void {
+    this.form.patchValue({
+      unit: lesson.unit.title,
+      title: lesson.title,
+      description: lesson.description,
+      points: lesson.points,
+      index: lesson.index,
+    });
   }
 
   saveLesson(): void {
@@ -58,46 +89,45 @@ export class EditLessonComponent implements OnInit {
 
     const unitTitle = this.form.value.unit;
     this.unitService.findUnitByTitle(unitTitle).subscribe({
-      next: (unit: Unit) => {
-        if (!unit) {
-          alert('Unidade não encontrado!');
-          return;
-        }
-
-        const data = {
-          id: this.lessonId,
-          unit: unit,
-          title: this.form.value.title,
-          description: this.form.value.description,
-          points: this.form.value.points,
-          index: this.form.value.index,
-        };
-
-        this.service.updateLesson(data).subscribe({
-          next: (response: any) => {
-            alert('Licao Alterada com sucesso!');
-            this.goBack();
-          },
-          error: (error: HttpErrorResponse) => {
-            console.error('Error posting Lesson', error);
-          },
-        });
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error finding unit', error);
-      },
+      next: (unit: Unit) => this.updateLesson(unit),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'finding unit'),
     });
   }
 
-  getUnitData(): void {
-    this.unitService.getAllUnitDetails().subscribe({
-      next: (data: Unit[]) => {
-        this.units = data;
-        this.unitsTitle = this.units.map((unit) => unit.title);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error fetching units', error);
-      },
+  private updateLesson(unit: Unit): void {
+    if (!unit) {
+      alert('Unidade não encontrada!');
+      return;
+    }
+
+    const lessonData = this.createLessonData(unit);
+    this.lessonService.updateLesson(lessonData).subscribe({
+      next: () => this.handleSuccess(),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'updating lesson'),
     });
+  }
+
+  private createLessonData(unit: Unit): Lesson {
+    return {
+      id: this.lessonId,
+      unit: unit,
+      title: this.form.value.title,
+      description: this.form.value.description,
+      points: this.form.value.points,
+      index: this.form.value.index,
+    };
+  }
+
+  private handleSuccess(): void {
+    alert('Lição atualizada com sucesso!');
+    this.navigateBack();
+  }
+
+  private handleError(error: HttpErrorResponse, context: string): void {
+    console.error(`Error ${context}`, error);
+  }
+
+  navigateBack(): void {
+    this.router.navigate(['admin/lessons']);
   }
 }
