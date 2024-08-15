@@ -45,7 +45,7 @@ button {
   top: 7%;
   width: 300px;
   padding: 9px;
-  background-color: var(--color-light-green);
+  background-color: var(--color-light-purple);
   color: var(--color-snow);
   border: 0px solid rgb(77, 75, 75);
   box-shadow: 0 4px 0 rgba(0, 102, 0, 0.7);
@@ -56,7 +56,7 @@ button {
   &:active {
     transform: translateY(4px);
     box-shadow: 0 2px 0 rgba(0, 102, 0, 0.7);
-    background-color: var(--color-light-green);
+    background-color: var(--color-light-purple);
     color: var(--color-snow);
   }
 }
