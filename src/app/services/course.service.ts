@@ -8,7 +8,7 @@ import { Course, CourseResponseDTO } from '../types/Course.type';
   providedIn: 'root',
 })
 export class CourseService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createCourse(data: Course): Observable<any> {
     return this.http.post<any>(env.courseApiUrl, data);
@@ -24,6 +24,10 @@ export class CourseService {
 
   getAllCourses(): Observable<CourseResponseDTO[]> {
     return this.http.get<CourseResponseDTO[]>(env.courseApiUrl);
+  }
+
+  getAllCoursesDetails(): Observable<Course[]> {
+    return this.http.get<Course[]>(`${env.courseApiUrl}/all`);
   }
 
   findCourseByName(name: string): Observable<Course> {

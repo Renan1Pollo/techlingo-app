@@ -43,7 +43,7 @@ export class CourseComponent implements OnInit {
 
   getCourseData(): void {
     this.courses = [];
-    this.service.getAllCourses().subscribe((data: Course[]) => {
+    this.service.getAllCoursesDetails().subscribe((data: Course[]) => {
       this.courses = data;
     });
   }

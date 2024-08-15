@@ -26,4 +26,8 @@ export class QuestionService {
     return this.http.get<QuestionResponseDTO[]>(env.questionApiUrl);
   }
 
+  getAllQuestionDetails(): Observable<Question[]> {
+    return this.http.get<Question[]>(`${env.questionApiUrl}/all`);
+  }
+
 }

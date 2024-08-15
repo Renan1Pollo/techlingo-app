@@ -43,7 +43,7 @@ export class LessonComponent implements OnInit {
 
   getLessonData(): void {
     this.lessons = [];
-    this.service.getAllLessons().subscribe((data: Lesson[]) => {
+    this.service.getAllLessonDetails().subscribe((data: Lesson[]) => {
       this.lessons = data;
     });
   }

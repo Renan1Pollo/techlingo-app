@@ -43,7 +43,7 @@ export class UnitComponent implements OnInit {
 
   getUnitData(): void {
     this.units = [];
-    this.service.getAllUnits().subscribe((data: Unit[]) => {
+    this.service.getAllUnitDetails().subscribe((data: Unit[]) => {
       this.units = data;
     });
   }

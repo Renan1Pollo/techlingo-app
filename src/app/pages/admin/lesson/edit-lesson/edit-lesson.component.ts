@@ -90,7 +90,7 @@ export class EditLessonComponent implements OnInit {
   }
 
   getUnitData(): void {
-    this.unitService.getAllUnits().subscribe({
+    this.unitService.getAllUnitDetails().subscribe({
       next: (data: Unit[]) => {
         this.units = data;
         this.unitsTitle = this.units.map((unit) => unit.title);

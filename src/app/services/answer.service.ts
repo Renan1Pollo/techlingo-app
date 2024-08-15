@@ -1,9 +1,8 @@
-import { Answer, AnswerResponseDTO } from './../types/Answer.type';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
-import { Question, QuestionResponseDTO } from '../types/Question.type';
+import { Answer, AnswerResponseDTO } from './../types/Answer.type';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +24,10 @@ export class AnswerService {
 
   getAllAnswers(): Observable<AnswerResponseDTO[]> {
     return this.http.get<AnswerResponseDTO[]>(env.answerApiUrl);
+  }
+
+  getAllAnswerDetails(): Observable<Answer[]> {
+    return this.http.get<Answer[]>(`${env.answerApiUrl}/all`);
   }
 
 }

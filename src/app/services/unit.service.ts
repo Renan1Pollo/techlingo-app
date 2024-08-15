@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
-import { Unit } from '../types/Unit.type';
+import { Unit, UnitResponseDTO } from '../types/Unit.type';
 import { Course } from '../types/Course.type';
 
 @Injectable({
@@ -23,8 +23,12 @@ export class UnitService {
     return this.http.delete<any>(`${env.unitApiUrl}/${id}`);
   }
 
-  getAllUnits(): Observable<Unit[]> {
-    return this.http.get<Unit[]>(env.unitApiUrl);
+  getAllUnits(): Observable<UnitResponseDTO[]> {
+    return this.http.get<UnitResponseDTO[]>(env.unitApiUrl);
+  }
+
+  getAllUnitDetails(): Observable<Unit[]> {
+    return this.http.get<Unit[]>(`${env.unitApiUrl}/all`);
   }
 
   findUnitByTitle(title: string): Observable<Unit> {

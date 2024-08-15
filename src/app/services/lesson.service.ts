@@ -1,15 +1,14 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
-import { Lesson } from '../types/Lesson.type';
-import { Unit } from '../types/Unit.type';
+import { Lesson, LessonResponseDTO } from '../types/Lesson.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LessonService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createLesson(data: Lesson): Observable<any> {
     return this.http.post<any>(env.lessonApiUrl, data);
@@ -23,7 +22,11 @@ export class LessonService {
     return this.http.delete<any>(`${env.lessonApiUrl}/${id}`);
   }
 
-  getAllLessons(): Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(env.lessonApiUrl);
+  getAllLessons(): Observable<LessonResponseDTO[]> {
+    return this.http.get<LessonResponseDTO[]>(env.lessonApiUrl);
+  }
+
+  getAllLessonDetails(): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(`${env.lessonApiUrl}/all`);
   }
 }

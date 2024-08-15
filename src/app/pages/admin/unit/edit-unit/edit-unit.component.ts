@@ -91,7 +91,7 @@ export class EditUnitComponent implements OnInit {
   }
 
   getCourseData(): void {
-    this.courseService.getAllCourses().subscribe({
+    this.courseService.getAllCoursesDetails().subscribe({
       next: (data: Course[]) => {
         this.courses = data;
         this.coursesName = this.courses.map(course => course.name);
