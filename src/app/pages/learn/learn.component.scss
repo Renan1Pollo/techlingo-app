@@ -29,6 +29,7 @@
   row-gap: 6px;
   background-color: var(--color-light-purple);
   color: var(--color-snow);
+  margin-bottom: 2rem;
 
   .section-info {
     font-size: 16px;
@@ -55,16 +56,20 @@
     white-space: normal;
   }
 }
-.section-container {
-  margin-bottom: 2rem; /* Adjust this value to set the space you need */
-}
 
 .lessons-container {
-  margin-top: 2rem; /* Add margin-top to create space between the section and lessons */
+  margin-top: 2rem;
 }
 
 .heart-container {
   justify-content: space-between;
   padding: 0 16px 0 10px;
   width: 72px;
+}
+
+.user-info .course-container img {
+  height: 40px;
+  width: 60px;
+  border-radius: 8px;
+  object-fit: cover;
 }
