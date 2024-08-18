@@ -17,15 +17,19 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LessonComponent } from './pages/admin/lesson/lesson.component';
 import { LessonQuizComponent } from './pages/lesson/lesson-quiz.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { NewAdminComponent } from './pages/admin/new-admin/new-admin.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: 'learn', component: LearnComponent },
   { path: 'lesson', component: LessonQuizComponent },
 
   { path: 'admin', component: AdminComponent },
+  { path: 'admin/new', component: NewAdminComponent },
   { path: 'admin/courses', component: CourseComponent },
   { path: 'admin/courses/add', component: AddCourseComponent },
   { path: 'admin/courses/:id/edit', component: EditCourseComponent },

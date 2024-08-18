@@ -16,6 +16,10 @@ export class AuthService {
     return this.http.post<User>(env.registerApiUrl, data);
   }
 
+  createAdmin(data: RegisterRequest): Observable<User> {
+    return this.http.post<User>(`${env.registerApiUrl}/admin`, data);
+  }
+
   login(data: LoginRequest): Observable<User> {
     return this.http.post<User>(env.loginApiUrl, data);
   }

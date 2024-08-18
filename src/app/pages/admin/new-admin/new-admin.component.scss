@@ -1,0 +1,33 @@
+.input-login {
+  width: 100%;
+}
+
+.form-container {
+  width: 50%;
+}
+
+.form-title {
+  font-family: "DINRoundPro-Bold";
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
+  color: rgb(22, 22, 22);
+}
+
+button {
+  font-family: "DINRoundPro-Bold";
+  font-size: 16px;
+  background-color: var(--color-light-blue);
+}
+
+.btn-entrar {
+  right: -1%;
+  top: 5%;
+  width: 100px;
+  padding: 9px;
+  background-color: transparent;
+  color: var(--color-light-blue);
+  border: 2px solid rgb(200, 200, 200);
+  border-radius: 15px;
+}
+
