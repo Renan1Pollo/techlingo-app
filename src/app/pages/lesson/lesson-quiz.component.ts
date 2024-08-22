@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalComponent } from "../../components/modal/modal.component";
-import { QuestionResponseDTO } from '../../types/Question.type';
-import { AnswerResponseDTO } from '../../types/Answer.type';
 import { AnswersCardComponent } from "../../components/answers-card/answers-card.component";
+import { LearnModalComponent } from '../../components/learn-modal/learn-modal.component';
+import { AnswerResponseDTO } from '../../types/Answer.type';
+import { QuestionResponseDTO } from '../../types/Question.type';
 
 @Component({
   selector: 'app-lesson-quiz',
   standalone: true,
-  imports: [ModalComponent, CommonModule, AnswersCardComponent],
+  imports: [LearnModalComponent, CommonModule, AnswersCardComponent],
   templateUrl: './lesson-quiz.component.html',
   styleUrls: ['./lesson-quiz.component.scss']
 })

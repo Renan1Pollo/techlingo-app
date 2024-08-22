@@ -1,16 +1,16 @@
-<div class="container-fluid d-flex h-100 p-0 m-0">
-  <app-modal [isModalOpen]="isModalOpen" [showHeart]="showHeart" (closeModal)="toggleModal()">
-    <div class="container mt-5">
+<div class="container-fluid d-flex h-100 p-0">
+  <app-learn-modal [isModalOpen]="isModalOpen" [showHeart]="showHeart" (closeModal)="toggleModal()">
+    <div class="container mt-4 px-2">
       <div *ngIf="!isQuizCompleted">
-        <div class="row mb-4">
+        <div class="row mb-3">
           <div class="col-12 text-center">
-            <h3 style="font-size: 1.5rem; font-weight: bold;">{{ questions[currentQuestionIndex].description }}</h3>
+            <h3 class="fw-bold fs-5">{{ questions[currentQuestionIndex].description }}</h3>
           </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 justify-content-center">
+        <div class="row g-3 justify-content-center">
           <div *ngFor="let answer of questions[currentQuestionIndex]?.answerList"
-            class="col d-flex justify-content-center">
+               class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
             <app-answers-card
               [answer]="answer"
               [selectedAnswer]="selectedAnswer"
@@ -19,23 +19,14 @@
             </app-answers-card>
           </div>
         </div>
-
-        <div class="row mt-4">
-          <div class="col-12 text-center">
-            <button class="btn btn-primary" (click)="verifyAnswer()" [disabled]="!selectedAnswer"
-              style="font-size: 1.1rem;">
-              {{ buttonLabel }}
-            </button>
-          </div>
-        </div>
       </div>
 
-      <div *ngIf="isQuizCompleted" class="text-center">
-        <h3 class="mb-4" style="font-size: 1.5rem; font-weight: bold;">Parabéns por finalizar a lição!</h3>
-        <button class="btn btn-success" (click)="finishLesson()" style="font-size: 1.1rem;">
+      <div *ngIf="isQuizCompleted" class="text-center mt-4">
+        <h3 class="mb-3 fw-bold fs-5">Parabéns por finalizar a lição!</h3>
+        <button class="btn btn-success fs-6" (click)="finishLesson()">
           Finalizar
         </button>
       </div>
     </div>
-  </app-modal>
+  </app-learn-modal>
 </div>
