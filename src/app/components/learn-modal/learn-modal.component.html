@@ -1,0 +1,37 @@
+@if (isModalOpen) {
+<div class="modal show d-block" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
+    <div class="modal-content p-5">
+      <div class="modal-header d-flex flex-row align-items-center justify-content-center w-100">
+        <button type="button" class="btn-close mr-3" (click)="close()"></button>
+
+        <div class="progress-content flex-grow-1 mx-3">
+          <div class="progress">
+            <div class="progress-bar bg-purple" role="progressbar" [style.width.%]="progressValue"
+              style="border-radius: 10px;" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+
+        <div class="user-info d-flex align-items-center me-3">
+          <span class="heart-container d-flex align-items-center" tabindex="0">
+            <img src="https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg"
+              class="img-fluid" alt="Heart Icon">
+            <span class="text-danger ms-2 fw-bold">{{ user.lives }}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+
+      <div class="modal-footer d-flex flex-row align-items-center justify-content-center w-100">
+        <div class="buttons d-flex justify-content-between" style="width: 65%;">
+          <button class="btn button-secondary back-button">Voltar</button>
+          <button class="btn button-primary next-button">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}
