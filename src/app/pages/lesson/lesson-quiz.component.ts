@@ -63,11 +63,22 @@ export class LessonQuizComponent implements OnInit {
   }
 
   moveToNextQuestion(): void {
+    if (!this.selectedAnswer) {
+      return;
+    }
+
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
       this.clearSelection();
     } else {
       this.isQuizCompleted = true;
+    }
+  }
+
+  moveToPreviousQuestion(): void {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      this.clearSelection();
     }
   }
 
@@ -80,4 +91,5 @@ export class LessonQuizComponent implements OnInit {
     this.toggleModal();
     console.log('Lesson finished!');
   }
+
 }

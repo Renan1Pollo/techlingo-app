@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../types/User.type';
 
 @Component({
@@ -6,12 +6,15 @@ import { User } from '../../types/User.type';
   standalone: true,
   imports: [],
   templateUrl: './learn-modal.component.html',
-  styleUrl: './learn-modal.component.scss'
+  styleUrls: ['./learn-modal.component.scss']
 })
-export class LearnModalComponent {
+export class LearnModalComponent implements OnInit {
   @Input() isModalOpen!: boolean;
   @Input() showHeart!: boolean;
-  @Output() closeModal = new EventEmitter();
+  @Input() isQuizCompleted: boolean = false;
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() continue = new EventEmitter<void>();
+  @Output() back = new EventEmitter<void>();
   user!: User;
   progressValue: number = 0;
 
@@ -28,6 +31,14 @@ export class LearnModalComponent {
 
   close() {
     this.closeModal.emit();
+  }
+
+  onContinue() {
+    this.continue.emit();
+  }
+
+  onBack() {
+    this.back.emit();
   }
 
   updateProgress() {

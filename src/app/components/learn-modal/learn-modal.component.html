@@ -27,8 +27,11 @@
 
       <div class="modal-footer d-flex flex-row align-items-center justify-content-center w-100">
         <div class="buttons d-flex justify-content-between" style="width: 65%;">
-          <button class="btn button-secondary back-button">Voltar</button>
-          <button class="btn button-primary next-button">Continuar</button>
+          @if (!isQuizCompleted) {
+            <button class="btn button-secondary back-button" (click)="onBack()">Voltar</button>
+          }
+          <div></div>
+          <button class="btn button-primary next-button" (click)="onContinue()">{{ isQuizCompleted ? 'Finalizar Lição' : 'Continuar' }}</button>
         </div>
       </div>
     </div>

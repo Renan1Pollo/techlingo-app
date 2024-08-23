@@ -1,5 +1,11 @@
 <div class="container-fluid d-flex h-100 p-0">
-  <app-learn-modal [isModalOpen]="isModalOpen" [showHeart]="showHeart" (closeModal)="toggleModal()">
+  <app-learn-modal
+    [isModalOpen]="isModalOpen"
+    [showHeart]="showHeart"
+    [isQuizCompleted]="isQuizCompleted"
+    (closeModal)="toggleModal()"
+    (continue)="verifyAnswer()"
+    (back)="moveToPreviousQuestion()">
     <div class="container mt-4 px-2">
       <div *ngIf="!isQuizCompleted">
         <div class="row mb-3">
@@ -20,13 +26,10 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div *ngIf="isQuizCompleted" class="text-center mt-4">
-        <h3 class="mb-3 fw-bold fs-5">Parabéns por finalizar a lição!</h3>
-        <button class="btn btn-success fs-6" (click)="finishLesson()">
-          Finalizar
-        </button>
-      </div>
+    <div *ngIf="isQuizCompleted" class="text-center mt-4">
+      <h3 class="mb-3 fw-bold fs-5">Parabéns por finalizar a lição!</h3>
     </div>
   </app-learn-modal>
 </div>
