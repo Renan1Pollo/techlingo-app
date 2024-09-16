@@ -1,11 +1,6 @@
 <div class="container-fluid d-flex h-100 p-0">
-  <app-learn-modal
-    [isModalOpen]="isModalOpen"
-    [showHeart]="showHeart"
-    [isQuizCompleted]="isQuizCompleted"
-    (closeModal)="toggleModal()"
-    (continue)="verifyAnswer()"
-    (back)="moveToPreviousQuestion()">
+  <app-learn-modal [isModalOpen]="isModalOpen" [showHeart]="true" [isQuizCompleted]="isQuizCompleted"
+    (closeModal)="toggleModal()" (continue)="verifyAnswer()" (back)="moveToPreviousQuestion()">
     <div class="container mt-4 px-2">
       <div *ngIf="!isQuizCompleted">
         <div class="row mb-3">
@@ -16,11 +11,8 @@
 
         <div class="row g-3 justify-content-center">
           <div *ngFor="let answer of questions[currentQuestionIndex]?.answerList"
-               class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-            <app-answers-card
-              [answer]="answer"
-              [selectedAnswer]="selectedAnswer"
-              [feedbackMessage]="feedbackMessage"
+            class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+            <app-answers-card [answer]="answer" [selectedAnswer]="selectedAnswer" [feedbackMessage]="feedbackMessage"
               (answerSelected)="selectAnswer($event)">
             </app-answers-card>
           </div>
@@ -30,6 +22,7 @@
 
     <div *ngIf="isQuizCompleted" class="text-center mt-4">
       <h3 class="mb-3 fw-bold fs-5">Parabéns por finalizar a lição!</h3>
+      <span> + {{ selectedLesson.points }}</span>
     </div>
   </app-learn-modal>
 </div>
