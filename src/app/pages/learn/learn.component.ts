@@ -77,7 +77,6 @@ export class LearnComponent implements OnInit {
     }, 0);
   }
 
-
   getCourses(): void {
     this.courses = [];
     this.courseService.getAllCourses().subscribe((data: CourseResponseDTO[]) => {
