@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { User } from '../../types/User.type';
 
 @Component({
@@ -12,13 +13,23 @@ export class LearnModalComponent implements OnInit {
   @Input() isModalOpen!: boolean;
   @Input() showHeart!: boolean;
   @Input() isQuizCompleted: boolean = false;
+
   @Output() closeModal = new EventEmitter<void>();
   @Output() continue = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
-  user!: User;
+
+  user: User = {
+    id: 0,
+    name: 'Usuário',
+    email: 'email@example.com',
+    password: '',
+    score: 0,
+    lives: 5
+  };
+
   progressValue: number = 0;
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.updateProgress();
   }
 
@@ -37,6 +48,12 @@ export class LearnModalComponent implements OnInit {
     this.continue.emit();
   }
 
+  decreaseLives(lives: number) {
+    this.user.lives = lives;
+    localStorage.setItem('user', JSON.stringify(this.user));
+    this.cdr.detectChanges();
+  }
+
   onBack() {
     this.back.emit();
   }
@@ -44,4 +61,5 @@ export class LearnModalComponent implements OnInit {
   updateProgress() {
     this.progressValue = 50;
   }
+
 }

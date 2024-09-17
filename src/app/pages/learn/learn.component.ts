@@ -25,7 +25,7 @@ interface FilterForm {
     CourseCardComponent,
     CommonModule,
     LessonQuizComponent
-],
+  ],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.scss'],
 })
@@ -39,7 +39,7 @@ export class LearnComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
@@ -75,6 +75,11 @@ export class LearnComponent implements OnInit {
     setTimeout(() => {
       this.selectedLesson = lesson;
     }, 0);
+  }
+
+  onLessonCompleted(livesLeft: number): void {
+    this.user.lives = livesLeft;
+    localStorage.setItem('user', JSON.stringify(this.user));
   }
 
   getCourses(): void {

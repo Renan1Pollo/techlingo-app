@@ -48,7 +48,7 @@
     </div>
   </div>
 
-  <app-lesson-quiz *ngIf="selectedLesson" [selectedLesson]="selectedLesson" [questions]="selectedLesson.questionList">
+  <app-lesson-quiz *ngIf="selectedLesson" [selectedLesson]="selectedLesson" [questions]="selectedLesson.questionList" (lessonCompleted)="onLessonCompleted($event)">
   </app-lesson-quiz>
 
   <app-modal [isModalOpen]="isModalOpen" (closeModal)="toggleModal()">
