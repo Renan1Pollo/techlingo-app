@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AnswersCardComponent } from '../../components/answers-card/answers-card.component';
@@ -27,14 +28,18 @@ export class LessonQuizComponent implements OnInit {
   isQuizCompleted: boolean = false;
   incorrectAnswers: QuestionResponseDTO[] = [];
   lives: number = 5;
+  userId!: number;
 
   @ViewChild(LearnModalComponent) modalComponent!: LearnModalComponent;
+
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
     if (userData) {
       const user: User = JSON.parse(userData);
       this.lives = user.lives;
+      this.userId = user.id;
     }
   }
 
@@ -108,13 +113,16 @@ export class LessonQuizComponent implements OnInit {
   }
 
   private completeQuiz(): void {
-    this.isQuizCompleted = true;
+    if (this.isQuizCompleted) {
+      this.updateLivesInBD();
+      this.finishLesson();
+    }
 
     if (this.incorrectAnswers.length > 0) {
       alert('Vamos rever o que você errou!');
       this.retryIncorrectAnswers();
     } else {
-      this.finishLesson();
+      this.isQuizCompleted = true;
     }
   }
 
@@ -147,6 +155,17 @@ export class LessonQuizComponent implements OnInit {
 
   private updateLivesInModal(): void {
     this.modalComponent.decreaseLives(this.lives);
+  }
+
+  private updateLivesInBD(): void {
+    this.userService.updateLives(this.userId, this.lives).subscribe({
+      next: (result) => {
+        console.log('Lives updated successfully:', result);
+      },
+      error: (error) => {
+        console.error('Error updating lives:', error);
+      }
+    });
   }
 
   private retryIncorrectAnswers(): void {

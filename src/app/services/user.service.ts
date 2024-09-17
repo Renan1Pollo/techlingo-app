@@ -9,20 +9,21 @@ import { env } from '../../environment/environment';
 export class UserService {
   private readonly apiUrl = env.userApiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   updatePassword(userId: number, newPassword: string): Observable<any> {
     const params = new HttpParams().set('password', newPassword);
     return this.http.put<any>(`${this.apiUrl}/${userId}/password`, { params });
   }
 
-  decreaseLives(userId: number, livesToLose: number): Observable<any> {
-    const params = new HttpParams().set('lifesToLose', livesToLose.toString());
-    return this.http.put<any>(`${this.apiUrl}/${userId}/lifes/decrease`, { params });
+  updateLives(userId: number, liveCount: number): Observable<any> {
+    const params = new HttpParams().set('liveCount', liveCount.toString());
+    return this.http.put<any>(`${this.apiUrl}/${userId}/lives/update`, null, { params });
   }
 
   increaseScore(userId: number, points: number): Observable<any> {
     const params = new HttpParams().set('points', points.toString());
+
     return this.http.put<any>(`${this.apiUrl}/${userId}/score/increase`, { params });
   }
 }
