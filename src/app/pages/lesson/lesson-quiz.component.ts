@@ -1,4 +1,3 @@
-import { UserService } from './../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AnswersCardComponent } from '../../components/answers-card/answers-card.component';
@@ -7,6 +6,7 @@ import { AnswerResponseDTO } from '../../types/Answer.type';
 import { LessonResponseDTO } from '../../types/Lesson.type';
 import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -32,7 +32,7 @@ export class LessonQuizComponent implements OnInit {
 
   @ViewChild(LearnModalComponent) modalComponent!: LearnModalComponent;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     const userData = localStorage.getItem('user');
@@ -115,6 +115,8 @@ export class LessonQuizComponent implements OnInit {
   private completeQuiz(): void {
     if (this.isQuizCompleted) {
       this.updateLivesInBD();
+      this.updateUserScoreInModal();
+      this.increaseScore();
       this.finishLesson();
     }
 
@@ -157,6 +159,10 @@ export class LessonQuizComponent implements OnInit {
     this.modalComponent.decreaseLives(this.lives);
   }
 
+  private updateUserScoreInModal(): void {
+    this.modalComponent.updateUserScore(this.selectedLesson.points);
+  }
+
   private updateLivesInBD(): void {
     this.userService.updateLives(this.userId, this.lives).subscribe({
       next: (result) => {
@@ -164,6 +170,17 @@ export class LessonQuizComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error updating lives:', error);
+      }
+    });
+  }
+
+  private increaseScore(): void {
+    this.userService.increaseScore(this.userId, this.selectedLesson.points).subscribe({
+      next: (result) => {
+        console.log('Score updated successfully:', result);
+      },
+      error: (error) => {
+        console.error('Error updating score:', error);
       }
     });
   }

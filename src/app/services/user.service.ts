@@ -23,7 +23,7 @@ export class UserService {
 
   increaseScore(userId: number, points: number): Observable<any> {
     const params = new HttpParams().set('points', points.toString());
-
-    return this.http.put<any>(`${this.apiUrl}/${userId}/score/increase`, { params });
+    return this.http.put<any>(`${this.apiUrl}/${userId}/score/increase`, null, { params });
   }
+
 }

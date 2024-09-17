@@ -54,6 +54,12 @@ export class LearnModalComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  updateUserScore(userScore: number) {
+    this.user.score += userScore;
+    localStorage.setItem('user', JSON.stringify(this.user));
+    this.cdr.detectChanges();
+  }
+
   onBack() {
     this.back.emit();
   }
