@@ -21,7 +21,7 @@ export class UserService {
 
   updatePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
     const params = this.createHttpParams({ oldPassword, newPassword });
-    return this.http.put<any>(`${this.apiUrl}/${userId}/password`, { params });
+    return this.http.put<any>(`${this.apiUrl}/${userId}/password`, null, { params });
   }
 
   updateLives(userId: number, liveCount: number): Observable<any> {
