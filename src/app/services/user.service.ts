@@ -9,21 +9,32 @@ import { env } from '../../environment/environment';
 export class UserService {
   private readonly apiUrl = env.userApiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  updatePassword(userId: number, newPassword: string): Observable<any> {
-    const params = new HttpParams().set('password', newPassword);
+  private createHttpParams(paramsObject: { [key: string]: any }): HttpParams {
+    let params = new HttpParams();
+    Object.keys(paramsObject).forEach((key) => {
+      params = params.set(key, paramsObject[key].toString());
+    });
+    return params;
+  }
+
+  updatePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
+    const params = this.createHttpParams({ oldPassword, newPassword });
     return this.http.put<any>(`${this.apiUrl}/${userId}/password`, { params });
   }
 
   updateLives(userId: number, liveCount: number): Observable<any> {
-    const params = new HttpParams().set('liveCount', liveCount.toString());
-    return this.http.put<any>(`${this.apiUrl}/${userId}/lives/update`, null, { params });
+    const params = this.createHttpParams({ liveCount });
+    return this.http.put<any>(`${this.apiUrl}/${userId}/lives`, null, {
+      params,
+    });
   }
 
   increaseScore(userId: number, points: number): Observable<any> {
-    const params = new HttpParams().set('points', points.toString());
-    return this.http.put<any>(`${this.apiUrl}/${userId}/score/increase`, null, { params });
+    const params = this.createHttpParams({ points });
+    return this.http.put<any>(`${this.apiUrl}/${userId}/score`, null, {
+      params,
+    });
   }
-
 }
