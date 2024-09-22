@@ -48,12 +48,18 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/learn']);
       },
       error: (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          alert('Usuário não encontrado');
-        } else {
-          console.error('Erro ao autenticar', error);
+        switch (error.status) {
+          case 404:
+            alert('Usuário não encontrado');
+            break;
+          case 400:
+            alert('Senha incorreta.');
+            break;
+          default:
+            console.error('Erro:', error.message);
+            alert('Ocorreu um erro, tente novamente mais tarde.');
         }
-      },
+      }
     });
   }
 
