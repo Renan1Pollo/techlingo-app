@@ -1,0 +1,23 @@
+<div class="container-fluid d-flex h-100">
+  <app-sidebar-menu-admin></app-sidebar-menu-admin>
+
+  <div class="container form-container">
+    <div style="height: 10%"></div>
+    <h1 class="form-title text-center mb-4">Formulário de Alteração de Conteudo</h1>
+    <div class="form">
+      <app-selection-input [form]="form" label="Lição" controlName="lesson" [values]="lessonsTitle" />
+      <app-input [form]="form" label="Titulo do Conteudo" controlName="title" />
+      <app-input [form]="form" label="Texto" controlName="text" />
+      <app-input [form]="form" label="URL da Imagem" controlName="image" />
+      <app-input [form]="form" label="Indice" controlName="index" />
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-danger p-2a mt-2" (click)="navigateBack()">
+          Voltar
+        </button>
+        <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveContent()">
+          Cadastrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
