@@ -8,6 +8,7 @@ import { CourseService } from '../../services/course.service';
 import { CourseResponseDTO } from '../../types/Course.type';
 import { LessonQuizComponent } from '../lesson/lesson-quiz.component';
 import { CourseCardComponent } from '../../components/course-card/course-card.component';
+import { EnrollmentService } from '../../services/enrollment.service';
 
 interface FilterForm {
   locale: FormControl;
@@ -39,6 +40,7 @@ export class LearnComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
+    private enrollmentService: EnrollmentService
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +82,19 @@ export class LearnComponent implements OnInit {
   onLessonCompleted(livesLeft: number): void {
     this.user.lives = livesLeft;
     localStorage.setItem('user', JSON.stringify(this.user));
+  }
+
+  registerUserInCourse(): void {
+    if (this.selectedCourse) return;
+    //const enrollment = this.enrollmentService.findEnrollment(this.user.id, this, this.selectedCourse.id);
+
+    //if (enrollment != null) {
+      //Ja possui matricula
+
+      //return;
+    //}
+
+    //this.enrollmentService.registerForCourse(this.user.id, this, this.selectedCourse.id);
   }
 
   getCourses(): void {
