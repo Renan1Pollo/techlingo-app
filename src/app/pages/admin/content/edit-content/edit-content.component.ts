@@ -79,7 +79,7 @@ export class EditContentComponent implements OnInit {
       image: content.image,
       index: content.index,
     });
-    console.log(content)
+
   }
 
   saveContent(): void {

@@ -8,9 +8,13 @@ import { CourseService } from '../../services/course.service';
 import { EnrollmentService } from '../../services/enrollment.service';
 import { CourseResponseDTO } from '../../types/Course.type';
 import { LessonQuizComponent } from '../lesson/lesson-quiz.component';
-import { Enrollment } from './../../types/Enrollment.type';
+import {
+  Enrollment,
+  EnrollmentResponseDTO,
+} from './../../types/Enrollment.type';
 import { User } from './../../types/User.type';
-import { catchError, EMPTY, Observable, tap } from 'rxjs';
+import { catchError, EMPTY, Observable, of, tap, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-learn',
@@ -34,7 +38,10 @@ export class LearnComponent implements OnInit {
   enrollment!: Enrollment;
   user!: User;
 
-  constructor(private courseService: CourseService, private enrollmentService: EnrollmentService) {}
+  constructor(
+    private courseService: CourseService,
+    private enrollmentService: EnrollmentService
+  ) {}
 
   ngOnInit(): void {
     this.initializeUser();
@@ -87,8 +94,8 @@ export class LearnComponent implements OnInit {
     }
 
     this.enrollmentService.getEnrollmentByUserAndCourse(this.user.id, this.selectedCourse.id).pipe(
-      tap((result) => this.handleEnrollmentFound(result)),
-      catchError(() => this.registerUserInCourse())
+      tap(result => result ? this.handleEnrollmentFound(result) : this.registerUserInCourse()),
+      catchError(error => { return throwError(() => new Error('Error fetching enrollment')); })
     ).subscribe();
   }
 
@@ -97,19 +104,13 @@ export class LearnComponent implements OnInit {
     console.log('Enrollment found:', this.enrollment);
   }
 
-  private registerUserInCourse(): Observable<Enrollment> {
+  private registerUserInCourse(): void {
     const enrollmentData = this.createEnrollmentData();
-
-    return this.enrollmentService.registerForCourse(enrollmentData).pipe(
-      tap((newEnrollment) => {
-        this.enrollment = newEnrollment;
-        console.log('Successfully enrolled:', this.enrollment);
-      }),
-      catchError((registrationError) => {
-        console.error('Enrollment error:', registrationError.message || registrationError);
-        return EMPTY;
-      })
-    );
+    this.enrollmentService.registerForCourse(enrollmentData).subscribe({
+      next: (enrollment: EnrollmentResponseDTO) => {
+        this.enrollment = enrollment;
+      },
+    });
   }
 
   private createEnrollmentData(): Enrollment {

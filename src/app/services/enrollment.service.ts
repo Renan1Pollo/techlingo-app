@@ -18,8 +18,8 @@ export class EnrollmentService {
     return params;
   }
 
-  registerForCourse(data: Enrollment): Observable<any> {
-    return this.http.post<any>(env.enrollmentApiUrl, data);
+  registerForCourse(data: Enrollment): Observable<EnrollmentResponseDTO> {
+    return this.http.post<EnrollmentResponseDTO>(env.enrollmentApiUrl, data);
   }
 
   getAllEnrollments(): Observable<EnrollmentResponseDTO[]> {

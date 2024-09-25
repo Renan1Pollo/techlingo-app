@@ -46,7 +46,7 @@ export class AddContentComponent implements OnInit {
 
   saveContent(): void {
     if (this.form.invalid) {
-      console.log(this.form)
+
       alert('Preencha todos os campos corretamente!');
       return;
     }

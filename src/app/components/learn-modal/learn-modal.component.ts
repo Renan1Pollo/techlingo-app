@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { User } from '../../types/User.type';
@@ -29,7 +30,7 @@ export class LearnModalComponent implements OnInit {
 
   progressValue: number = 0;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private userService: UserService) {
     this.updateProgress();
   }
 
@@ -55,8 +56,9 @@ export class LearnModalComponent implements OnInit {
   }
 
   updateUserScore(userScore: number) {
-    this.user.score += userScore;
-    localStorage.setItem('user', JSON.stringify(this.user));
+    const newScore = this.user.score + userScore;
+    const updatedUser = { ...this.user, score: newScore };
+    localStorage.setItem('user', JSON.stringify(updatedUser));
     this.cdr.detectChanges();
   }
 
