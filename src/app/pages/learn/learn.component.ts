@@ -1,20 +1,16 @@
-import { User } from './../../types/User.type';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CourseCardComponent } from '../../components/course-card/course-card.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { SidebarMenuComponent } from '../../components/sidebar-menu/sidebar-menu.component';
 import { CourseService } from '../../services/course.service';
+import { EnrollmentService } from '../../services/enrollment.service';
 import { CourseResponseDTO } from '../../types/Course.type';
 import { LessonQuizComponent } from '../lesson/lesson-quiz.component';
-import { CourseCardComponent } from '../../components/course-card/course-card.component';
-import { EnrollmentService } from '../../services/enrollment.service';
-
-interface FilterForm {
-  locale: FormControl;
-  from: FormControl;
-  to: FormControl;
-}
+import { Enrollment } from './../../types/Enrollment.type';
+import { User } from './../../types/User.type';
+import { catchError, EMPTY, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-learn',
@@ -25,58 +21,59 @@ interface FilterForm {
     ReactiveFormsModule,
     CourseCardComponent,
     CommonModule,
-    LessonQuizComponent
+    LessonQuizComponent,
   ],
   templateUrl: './learn.component.html',
   styleUrls: ['./learn.component.scss'],
 })
 export class LearnComponent implements OnInit {
-  filterForm!: FormGroup<FilterForm>;
   isModalOpen = false;
-  courses!: CourseResponseDTO[];
-  selectedCourse: any;
-  selectedLesson: any
+  courses: CourseResponseDTO[] = [];
+  selectedCourse!: CourseResponseDTO;
+  selectedLesson: any;
+  enrollment!: Enrollment;
   user!: User;
 
-  constructor(
-    private courseService: CourseService,
-    private enrollmentService: EnrollmentService
-  ) { }
+  constructor(private courseService: CourseService, private enrollmentService: EnrollmentService) {}
 
   ngOnInit(): void {
-    this.filterForm = new FormGroup({
-      locale: new FormControl(''),
-      from: new FormControl(null),
-      to: new FormControl(null),
-    });
-
-    this.getCourses();
-    this.isModalOpen = true;
-
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    }
+    this.initializeUser();
+    this.loadCourses();
+    this.toggleModal();
   }
 
-  toggleModal() {
+  private initializeUser(): void {
+    const userData = localStorage.getItem('user');
+    this.user = userData ? JSON.parse(userData) : ({} as User);
+  }
+
+  private loadCourses(): void {
+    this.courseService
+      .getAllCourses()
+      .subscribe((data: CourseResponseDTO[]) => {
+        this.courses = data;
+      });
+  }
+
+  toggleModal(): void {
     this.isModalOpen = !this.isModalOpen;
   }
 
-  submit() {
+  submit(): void {
     this.isModalOpen = false;
   }
 
-  selectCourse(course: CourseResponseDTO) {
+  selectCourse(course: CourseResponseDTO): void {
     this.selectedCourse = course;
-    this.isModalOpen = false;
+    this.fetchUserEnrollment();
+    this.toggleModal();
   }
 
-  openLesson(lesson: any) {
+  openLesson(lesson: any): void {
     this.selectedLesson = null;
     setTimeout(() => {
       this.selectedLesson = lesson;
-    }, 0);
+    });
   }
 
   onLessonCompleted(livesLeft: number): void {
@@ -84,23 +81,42 @@ export class LearnComponent implements OnInit {
     localStorage.setItem('user', JSON.stringify(this.user));
   }
 
-  registerUserInCourse(): void {
-    if (this.selectedCourse) return;
-    //const enrollment = this.enrollmentService.findEnrollment(this.user.id, this, this.selectedCourse.id);
+  private fetchUserEnrollment(): void {
+    if (!this.selectedCourse) {
+      return;
+    }
 
-    //if (enrollment != null) {
-      //Ja possui matricula
-
-      //return;
-    //}
-
-    //this.enrollmentService.registerForCourse(this.user.id, this, this.selectedCourse.id);
+    this.enrollmentService.getEnrollmentByUserAndCourse(this.user.id, this.selectedCourse.id).pipe(
+      tap((result) => this.handleEnrollmentFound(result)),
+      catchError(() => this.registerUserInCourse())
+    ).subscribe();
   }
 
-  getCourses(): void {
-    this.courses = [];
-    this.courseService.getAllCourses().subscribe((data: CourseResponseDTO[]) => {
-      this.courses = data;
-    });
+  private handleEnrollmentFound(result: Enrollment): void {
+    this.enrollment = result;
+    console.log('Enrollment found:', this.enrollment);
+  }
+
+  private registerUserInCourse(): Observable<Enrollment> {
+    const enrollmentData = this.createEnrollmentData();
+
+    return this.enrollmentService.registerForCourse(enrollmentData).pipe(
+      tap((newEnrollment) => {
+        this.enrollment = newEnrollment;
+        console.log('Successfully enrolled:', this.enrollment);
+      }),
+      catchError((registrationError) => {
+        console.error('Enrollment error:', registrationError.message || registrationError);
+        return EMPTY;
+      })
+    );
+  }
+
+  private createEnrollmentData(): Enrollment {
+    return {
+      id: null,
+      user: this.user,
+      course: this.selectedCourse,
+    };
   }
 }

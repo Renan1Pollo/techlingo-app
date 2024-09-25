@@ -8,7 +8,15 @@ import { Enrollment, EnrollmentResponseDTO } from '../types/Enrollment.type';
   providedIn: 'root',
 })
 export class EnrollmentService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+
+  private createHttpParams(paramsObject: { [key: string]: any }): HttpParams {
+    let params = new HttpParams();
+    Object.keys(paramsObject).forEach((key) => {
+      params = params.set(key, paramsObject[key].toString());
+    });
+    return params;
+  }
 
   registerForCourse(data: Enrollment): Observable<any> {
     return this.http.post<any>(env.enrollmentApiUrl, data);
@@ -24,6 +32,11 @@ export class EnrollmentService {
 
   getEnrollmentsByUserId(userId: number): Observable<Enrollment> {
     return this.http.get<Enrollment>(`${env.enrollmentApiUrl}/byUser/${userId}`);
+  }
+
+  getEnrollmentByUserAndCourse(userId: number, courseId: number): Observable<EnrollmentResponseDTO> {
+    const params = this.createHttpParams({ userId, courseId });
+    return this.http.get<EnrollmentResponseDTO>(`${env.enrollmentApiUrl}/byUserAndCourse`, { params });
   }
 
 }
