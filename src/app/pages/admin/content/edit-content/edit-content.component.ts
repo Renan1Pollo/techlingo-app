@@ -43,7 +43,7 @@ export class EditContentComponent implements OnInit {
       lesson: [null, [Validators.required]],
       title: [null, Validators.required],
       text: [null, Validators.required],
-      image: [null, Validators.required],
+      image: null,
       index: [null, Validators.required],
     });
   }

@@ -4,42 +4,16 @@ a {
   font-family: "DINRoundPro-bold";
   font-size: 15px;
   text-decoration: none;
-}
 
-img {
-  height: 80px;
-  width: 80px;
-}
-
-.content-wrapper {
-  border-right: 2px solid #ccccccc5;
-  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0);
-}
-
-.nav-item {
-  width: 80%;
-  min-width: 200px;
-  height: auto;
-  background: #ffffff;
-  padding: 10px;
-  margin-top: 1rem;
-  border-radius: 20px;
-}
-
-.sidebar-logo {
-  height: 32px;
-  width: 32px;
-  margin-right: 0.7rem;
+  &:hover {
+    color: rgb(136, 91, 222);
+  }
 }
 
 .sidebar-title {
-  color: rgb(136 91 222);
+  color: rgb(136, 91, 222);
   font-size: 30px;
   margin-left: 0.5rem;
-}
-
-.title-container {
-  margin-bottom: 1rem;
 }
 
 .dropdown-menu {
@@ -75,4 +49,8 @@ img {
 
 .dropdown-menu:hover {
   opacity: 1;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }

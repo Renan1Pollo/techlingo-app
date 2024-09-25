@@ -1,31 +1,31 @@
-<div class="content-wrapper d-flex flex-column justify-content-center p-4 ml-2 h-100" style="width: 240px;">
-  <div class="title-container">
-    <a href="/">
-      <span class="sidebar-title">TechLingo</span>
+<div class="content-wrapper d-flex flex-column justify-content-center p-4 border-end h-100" style="width: 240px;">
+  <div class="title-container mb-5">
+    <a href="/" class="text-decoration-none">
+      <span class="sidebar-title fs-1">TechLingo</span>
     </a>
   </div>
   <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="/learn">
-        <img class="sidebar-logo" src="../assets/images/learn-logo.svg">
+    <li class="nav-item mb-4">
+      <a class="nav-link d-flex align-items-center" href="/learn">
+        <img class="sidebar-logo me-2" src="../assets/images/learn-logo.svg" alt="Learn Logo" style="height: 32px; width: 32px;">
         APRENDER
       </a>
     </li>
-    <li class="nav-item">
-      <a href="/">
-        <img class="sidebar-logo" src="../assets/images/profile-logo.svg">
+    <li class="nav-item mb-4">
+      <a class="nav-link d-flex align-items-center" href="/">
+        <img class="sidebar-logo me-2" src="../assets/images/profile-logo.svg" alt="Profile Logo" style="height: 32px; width: 32px;">
         PERFIL
       </a>
     </li>
-    <li class="nav-item dropdown">
-      <a href="/" id="moreDropdown">
-        <img class="sidebar-logo" src="../assets/images/more-logo.svg">
+    <li class="nav-item dropdown mb-4">
+      <a class="nav-link d-flex align-items-center dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <img class="sidebar-logo me-2" src="../assets/images/more-logo.svg" alt="More Logo" style="height: 32px; width: 32px;">
         MAIS
       </a>
-      <div class="dropdown-menu" aria-labelledby="moreDropdown">
-        <a class="dropdown-item" href="/change-password">Alterar a Senha</a>
-        <a class="dropdown-item" href="/logout">Sair</a>
-      </div>
+      <ul class="dropdown-menu" aria-labelledby="moreDropdown">
+        <li><a class="dropdown-item" href="/change-password">Alterar a Senha</a></li>
+        <li><a class="dropdown-item" href="/logout">Sair</a></li>
+      </ul>
     </li>
   </ul>
 </div>

@@ -8,7 +8,7 @@
       <app-selection-input [form]="form" label="Lição" controlName="lesson" [values]="lessonsTitle" />
       <app-input [form]="form" label="Titulo do Conteudo" controlName="title" />
       <app-input [form]="form" label="Texto" controlName="text" />
-      <app-input [form]="form" label="URL da Imagem" controlName="image" />
+      <app-input [asteriskRequired]="false" [form]="form" label="URL da Imagem" controlName="image" />
       <app-input [form]="form" label="Indice" controlName="index" />
       <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-danger p-2a mt-2" (click)="goBack()">
