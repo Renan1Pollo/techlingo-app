@@ -1,8 +1,13 @@
 <div class="form-floating mb-3" [formGroup] = "form">
   <input class="form-control input-login" id="floatingInput"
     [type]="type"
+    [mask]="mask"
     [placeholder]="label"
     [formControlName]="controlName"
+    autocomplete="off"
+    [minlength]="minlength"
+    [maxlength]="maxlength"
+    [disabled]="disabled"
   />
-  <label for="floatingInput" class="fs-6">{{ label }}</label>
+  <label for="floatingInput1">{{ label }} {{ asteriskRequired ? "*" : "" }}</label>
 </div>
