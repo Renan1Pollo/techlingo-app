@@ -9,5 +9,8 @@
     [maxlength]="maxlength"
     [disabled]="disabled"
   />
-  <label for="floatingInput1">{{ label }} {{ asteriskRequired ? "*" : "" }}</label>
+  <label for="floatingInput">{{ label }} <span *ngIf="asteriskRequired" class="red-asterisk">*</span></label>
+  <div class="text-danger " *ngIf="form.get(controlName)?.invalid && form.get(controlName)?.touched">
+    {{ getErrors() }}
+  </div>
 </div>

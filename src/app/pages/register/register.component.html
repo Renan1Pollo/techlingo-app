@@ -4,8 +4,8 @@
     <h1 class="form-title text-center mb-4">Crie o seu perfil</h1>
     <div>
       <app-input [form] = "form" label="Nome" controlName="name"/>
-      <app-input [form] = "form" label="E-mail" controlName="email" />
-      <app-input [form] = "form" label="Senha" controlName="password"/>
+      <app-input [type] = "'email'" [form] = "form" label="E-mail" controlName="email" />
+      <app-input [type] = "'password'" [form] = "form" label="Senha" controlName="password"/>
       <button type="button" class="btn btn-primary p-2 mt-4 w-100" (click)="submit()">CRIAR CONTA</button>
     </div>
   </div>
