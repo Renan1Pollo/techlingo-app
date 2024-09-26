@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CourseCardComponent } from '../../components/course-card/course-card.component';
 import { ModalComponent } from '../../components/modal/modal.component';
@@ -14,7 +14,6 @@ import {
 } from './../../types/Enrollment.type';
 import { User } from './../../types/User.type';
 import { catchError, EMPTY, Observable, of, tap, throwError } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-learn',
@@ -32,6 +31,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LearnComponent implements OnInit {
   isModalOpen = false;
+  showSidebar = true;
   courses: CourseResponseDTO[] = [];
   selectedCourse!: CourseResponseDTO;
   selectedLesson: any;
@@ -43,10 +43,20 @@ export class LearnComponent implements OnInit {
     private enrollmentService: EnrollmentService
   ) {}
 
+  @HostListener('window:resize')
+  onResize() {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize() {
+    this.showSidebar = window.innerWidth > 1000; // Define se o menu deve ser exibido
+  }
+
   ngOnInit(): void {
     this.initializeUser();
     this.loadCourses();
     this.toggleModal();
+    this.checkWindowSize();
   }
 
   private initializeUser(): void {
