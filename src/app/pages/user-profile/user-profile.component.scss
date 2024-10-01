@@ -5,7 +5,6 @@
 .profile-card {
   background: #ffffff;
   border-radius: 10px;
-  max-width: 800px;
   margin: 20px auto;
 }
 
@@ -20,7 +19,9 @@
 }
 
 .course-image {
-  height: 150px;
+  max-width: 100%;
+  max-height: 35px;
+  width: auto;
   object-fit: cover;
 }
 
@@ -28,5 +29,3 @@
   font-weight: bold;
   color: #00796b;
 }
-
-

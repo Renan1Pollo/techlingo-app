@@ -3,44 +3,39 @@
 
   <div class="content-container container-fluid d-flex flex-column h-100">
     <div class="container d-flex flex-column align-items-center justify-content-center p-4 h-100">
-      <div class="card text-center shadow" style="max-width: 50%; max-height: 50%; width: 100%; height: 100%;">
+      <div class="card text-center shadow w-100" style="max-width: 500px; min-width: 280px; min-height: 350px; max-height: 400px;">
         <div class="card-body d-flex flex-column align-items-center justify-content-center">
           <div class="mb-4">
-            <img src="https://via.placeholder.com/150" alt="User Avatar"
-              class="rounded-circle border border-primary border-3" width="120" height="120">
+            <img
+              src="../../../assets/images/TechLingo_user_Icon.jpg"
+              class="rounded-circle border border-dark border-2 img-fluid"
+              style="max-width: 150px; max-height: 200px;">
           </div>
-          <h5 class="card-title h4">Renan Pollo Benelli</h5>
-          <h6 class="card-subtitle text-start mb-2 text-muted">RenanPollogmail.com</h6>
-          <p class="card-text cla">Por aqui desde março de 2024</p>
-          <div class="mt-4">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
-              alt="English Language" width="30">
+          <h5 class="card-title h4">{{ user.name }}</h5>
+          <h6 class="card-subtitle text-muted">{{ user.email }}</h6>
+          <p class="card-text">Por aqui desde {{ getFormattedCreationDate() }}</p>
+
+          <div class="courses d-flex flex-wrap justify-content-center">
+            <img *ngFor="let course of courses"
+              [src]="course.image"
+              [alt]="course.name"
+              class="img-fluid border border-secondary m-1 course-image">
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <div class="h-100 mt-5 d-flex flex-start" style="width: 30%;">
-    <div class="coins-menu d-flex flex-start" data-test="coins-menu">
-      <svg height="28px" width="28px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4">
+  <div class="h-100 mt-5 d-flex flex-start flex-wrap" style="width: 30%;">
+    <div class="coins-menu d-flex flex-start me-3" data-test="coins-menu">
+      <svg height="28px" width="28px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4">
         <g clip-path="url(#clip0_378_5300)">
-          <path
-            d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8.00001C14.6667 4.31811 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.31811 1.33334 8.00001C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z"
-            fill="#FFAB00"></path>
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M7.99999 1.99999C4.68628 1.99999 1.99999 4.68628 1.99999 7.99999C1.99999 11.3137 4.68628 14 7.99999 14C11.3137 14 14 11.3137 14 7.99999C14 4.68628 11.3137 1.99999 7.99999 1.99999ZM0.666656 7.99999C0.666656 3.9499 3.9499 0.666656 7.99999 0.666656C12.0501 0.666656 15.3333 3.9499 15.3333 7.99999C15.3333 12.0501 12.0501 15.3333 7.99999 15.3333C3.9499 15.3333 0.666656 12.0501 0.666656 7.99999Z"
-            fill="#FFE683"></path>
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M10.1953 5.52861C10.4556 5.26826 10.8777 5.26826 11.1381 5.52861L13.1381 7.52861C13.3984 7.78896 13.3984 8.21107 13.1381 8.47142L11.1381 10.4714C10.8777 10.7318 10.4556 10.7318 10.1953 10.4714C9.93491 10.2111 9.93491 9.78896 10.1953 9.52861L11.7239 8.00001L10.1953 6.47141C9.93491 6.21107 9.93491 5.78896 10.1953 5.52861Z"
-            fill="#FFE683"></path>
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M5.80473 5.52861C6.06508 5.78896 6.06508 6.21107 5.80473 6.47141L4.27613 8.00001L5.80473 9.52861C6.06508 9.78896 6.06508 10.2111 5.80473 10.4714C5.54438 10.7318 5.12227 10.7318 4.86192 10.4714L2.86192 8.47142C2.60157 8.21107 2.60157 7.78896 2.86192 7.52861L4.86192 5.52861C5.12227 5.26826 5.54438 5.26826 5.80473 5.52861Z"
-            fill="#FFE683"></path>
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M8.79741 4.01295C9.15845 4.08516 9.39259 4.43638 9.32038 4.79742L7.98705 11.4641C7.91484 11.8251 7.56363 12.0593 7.20259 11.9871C6.84155 11.9149 6.6074 11.5636 6.67961 11.2026L8.01294 4.53593C8.08515 4.17489 8.43637 3.94074 8.79741 4.01295Z"
-            fill="#FFE683"></path>
+          <path d="M8.00001 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8.00001C14.6667 4.31811 11.6819 1.33334 8.00001 1.33334C4.31811 1.33334 1.33334 4.31811 1.33334 8.00001C1.33334 11.6819 4.31811 14.6667 8.00001 14.6667Z" fill="#FFAB00"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99999 1.99999C4.68628 1.99999 1.99999 4.68628 1.99999 7.99999C1.99999 11.3137 4.68628 14 7.99999 14C11.3137 14 14 11.3137 14 7.99999C14 4.68628 11.3137 1.99999 7.99999 1.99999ZM0.666656 7.99999C0.666656 3.9499 3.9499 0.666656 7.99999 0.666656C12.0501 0.666656 15.3333 3.9499 15.3333 7.99999C15.3333 12.0501 12.0501 15.3333 7.99999 15.3333C3.9499 15.3333 0.666656 12.0501 0.666656 7.99999Z" fill="#FFE683"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1953 5.52861C10.4556 5.26826 10.8777 5.26826 11.1381 5.52861L13.1381 7.52861C13.3984 7.78896 13.3984 8.21107 13.1381 8.47142L11.1381 10.4714C10.8777 10.7318 10.4556 10.7318 10.1953 10.4714C9.93491 10.2111 9.93491 9.78896 10.1953 9.52861L11.7239 8.00001L10.1953 6.47141C9.93491 6.21107 9.93491 5.78896 10.1953 5.52861Z" fill="#FFE683"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.80473 5.52861C6.06508 5.78896 6.06508 6.21107 5.80473 6.47141L4.27613 8.00001L5.80473 9.52861C6.06508 9.78896 6.06508 10.2111 5.80473 10.4714C5.54438 10.7318 5.12227 10.7318 4.86192 10.4714L2.86192 8.47142C2.60157 8.21107 2.60157 7.78896 2.86192 7.52861L4.86192 5.52861C5.12227 5.26826 5.54438 5.26826 5.80473 5.52861Z" fill="#FFE683"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.79741 4.01295C9.15845 4.08516 9.39259 4.43638 9.32038 4.79742L7.98705 11.4641C7.91484 11.8251 7.56363 12.0593 7.20259 11.9871C6.84155 11.9149 6.6074 11.5636 6.67961 11.2026L8.01294 4.53593C8.08515 4.17489 8.43637 3.94074 8.79741 4.01295Z" fill="#FFE683"></path>
         </g>
         <defs>
           <clipPath id="clip0_378_5300">
@@ -48,14 +43,13 @@
           </clipPath>
         </defs>
       </svg>
-      <span class="ms-2" style="font-size: 18px; font-weight: 700;">500</span>
+      <span class="ms-2" style="font-size: 18px; font-weight: 700;">{{ user.score }}</span>
     </div>
 
     <div class="hearts-menu d-flex" data-test="hearts-menu">
       <span class="heart-container d-flex" tabindex="0">
-        <img src="https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg"
-          style="height: 28px; width: 28px;">
-        <span class="text-danger ms-2" style="font-size: 18px; font-weight: 700;">5</span>
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/images/hearts/8fdba477c56a8eeb23f0f7e67fdec6d9.svg" style="height: 28px; width: 28px;">
+        <span class="text-danger ms-2" style="font-size: 18px; font-weight: 700;">{{ user.lives }}</span>
       </span>
     </div>
   </div>
