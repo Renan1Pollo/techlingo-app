@@ -22,12 +22,14 @@ import { LearnComponent } from './pages/learn/learn.component';
 import { LessonQuizComponent } from './pages/lesson/lesson-quiz.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'user-profile', component: UserProfileComponent },
   { path: 'learn', component: LearnComponent },
   { path: 'lesson', component: LessonQuizComponent },
 

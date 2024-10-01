@@ -1,0 +1,32 @@
+.container-fluid {
+  background-color: #f7f9fc;
+}
+
+.profile-card {
+  background: #ffffff;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.course-card {
+  transition: transform 0.2s;
+  border-radius: 10px;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.course-image {
+  height: 150px;
+  object-fit: cover;
+}
+
+.course-name {
+  font-weight: bold;
+  color: #00796b;
+}
+
+
