@@ -1,8 +1,20 @@
 <div class="container-fluid d-flex h-100 p-0">
   <app-learn-modal [isModalOpen]="isModalOpen" [showHeart]="true" [isQuizCompleted]="isQuizCompleted"
     (closeModal)="toggleModal()" (continue)="verifyAnswer()" (back)="moveToPreviousQuestion()">
+
     <div class="container mt-4 px-2">
-      <div *ngIf="!isQuizCompleted">
+      <div *ngIf="isContentDisplayed">
+        <!-- Exibe conteúdo -->
+        <div class="row mb-3">
+          <div class="col-12 text-center">
+            <h3 class="fw-bold fs-5">{{ contents[currentContentIndex]?.title }}</h3>
+            <p>{{ contents[currentContentIndex]?.text }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isContentDisplayed">
+        <!-- Exibe perguntas -->
         <div class="row mb-3">
           <div class="col-12 text-center">
             <h3 class="fw-bold fs-5">{{ questions[currentQuestionIndex].description }}</h3>
@@ -20,9 +32,5 @@
       </div>
     </div>
 
-    <div *ngIf="isQuizCompleted" class="text-center mt-4">
-      <h3 class="mb-3 fw-bold fs-5">Parabéns por finalizar a lição!</h3>
-      <span> + {{ selectedLesson.points }}</span>
-    </div>
-  </app-learn-modal>
+  </app-learn-modal> <!-- Fechamento correto da tag app-learn-modal -->
 </div>

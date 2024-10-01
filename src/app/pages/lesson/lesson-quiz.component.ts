@@ -7,6 +7,7 @@ import { LessonResponseDTO } from '../../types/Lesson.type';
 import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
 import { UserService } from './../../services/user.service';
+import { ContentResponseDTO } from '../../types/Content.type';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -17,6 +18,7 @@ import { UserService } from './../../services/user.service';
 })
 export class LessonQuizComponent implements OnInit {
   @Input() questions: QuestionResponseDTO[] = [];
+  @Input() contents: ContentResponseDTO[] = [];
   @Input() selectedLesson!: LessonResponseDTO;
   @Output() lessonCompleted = new EventEmitter<number>();
 
@@ -25,6 +27,8 @@ export class LessonQuizComponent implements OnInit {
   buttonLabel: string = 'Verificar';
   isModalOpen: boolean = true;
   currentQuestionIndex: number = 0;
+  currentContentIndex: number = 0;  // Novo índice para os conteúdos
+  isContentDisplayed: boolean = true;  // Controla se o conteúdo ou a pergunta é exibido
   isQuizCompleted: boolean = false;
   incorrectAnswers: QuestionResponseDTO[] = [];
   lives: number = 5;
@@ -53,6 +57,13 @@ export class LessonQuizComponent implements OnInit {
   }
 
   verifyAnswer(): void {
+    if (this.isContentDisplayed) {
+      // Se conteúdo está sendo exibido, alterna para a pergunta
+      this.isContentDisplayed = false;
+      this.buttonLabel = 'Verificar';
+      return;
+    }
+
     if (!this.selectedAnswer || this.feedbackMessage) {
       this.resetForNextQuestion();
       return;
@@ -74,13 +85,14 @@ export class LessonQuizComponent implements OnInit {
 
   private resetForNextQuestion(): void {
     this.buttonLabel = 'Verificar';
-    this.moveToNextQuestion();
+    this.moveToNextItem();
   }
 
-  private moveToNextQuestion(): void {
-    if (!this.selectedAnswer) return;
-
-    if (this.hasMoreQuestions()) {
+  private moveToNextItem(): void {
+    if (this.isContentDisplayed) {
+      this.isContentDisplayed = false; // Alterna para a pergunta
+    } else if (this.hasMoreQuestions()) {
+      this.isContentDisplayed = true;  // Alterna para o conteúdo
       this.loadNextQuestion();
     } else {
       this.completeQuiz();
