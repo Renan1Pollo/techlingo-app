@@ -5,4 +5,5 @@ export type User = {
   password: string;
   score: number;
   lives: number;
+  creationDate: Date;
 };

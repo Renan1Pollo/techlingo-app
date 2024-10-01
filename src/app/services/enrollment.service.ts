@@ -30,8 +30,8 @@ export class EnrollmentService {
     return this.http.get<Enrollment[]>(`${env.enrollmentApiUrl}/details`);
   }
 
-  getEnrollmentsByUserId(userId: number): Observable<Enrollment> {
-    return this.http.get<Enrollment>(`${env.enrollmentApiUrl}/byUser/${userId}`);
+  getEnrollmentsByUserId(userId: number): Observable<EnrollmentResponseDTO[]> {
+    return this.http.get<EnrollmentResponseDTO[]>(`${env.enrollmentApiUrl}/byUser/${userId}`);
   }
 
   getEnrollmentByUserAndCourse(userId: number, courseId: number): Observable<EnrollmentResponseDTO> {

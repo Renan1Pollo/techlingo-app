@@ -25,7 +25,8 @@ export class LearnModalComponent implements OnInit {
     email: 'email@example.com',
     password: '',
     score: 0,
-    lives: 5
+    lives: 5,
+    creationDate: new Date()
   };
 
   progressValue: number = 0;

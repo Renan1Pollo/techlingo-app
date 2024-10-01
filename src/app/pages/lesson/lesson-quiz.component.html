@@ -4,17 +4,15 @@
 
     <div class="container mt-4 px-2">
       <div *ngIf="isContentDisplayed">
-        <!-- Exibe conteúdo -->
         <div class="row mb-3">
           <div class="col-12 text-center">
-            <h3 class="fw-bold fs-5">{{ contents[currentContentIndex]?.title }}</h3>
-            <p>{{ contents[currentContentIndex]?.text }}</p>
+            <h3 class="fw-bold fs-5">{{ contents[currentContentIndex].title }}</h3>
+            <p>{{ contents[currentContentIndex].text }}</p>
           </div>
         </div>
       </div>
 
       <div *ngIf="!isContentDisplayed">
-        <!-- Exibe perguntas -->
         <div class="row mb-3">
           <div class="col-12 text-center">
             <h3 class="fw-bold fs-5">{{ questions[currentQuestionIndex].description }}</h3>
@@ -32,5 +30,5 @@
       </div>
     </div>
 
-  </app-learn-modal> <!-- Fechamento correto da tag app-learn-modal -->
+  </app-learn-modal>
 </div>

@@ -49,7 +49,7 @@ export class LearnComponent implements OnInit {
   }
 
   checkWindowSize() {
-    this.showSidebar = window.innerWidth > 1000; // Define se o menu deve ser exibido
+    this.showSidebar = window.innerWidth > 1000;
   }
 
   ngOnInit(): void {
