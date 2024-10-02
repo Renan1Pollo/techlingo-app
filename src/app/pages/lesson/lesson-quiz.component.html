@@ -1,6 +1,6 @@
 <div class="container-fluid d-flex h-100 p-0">
   <app-learn-modal [isModalOpen]="isModalOpen" [showHeart]="true" [isQuizCompleted]="isQuizCompleted"
-    (closeModal)="toggleModal()" (continue)="verifyAnswer()" (back)="moveToPreviousQuestion()">
+    (closeModal)="toggleModal()" (continue)="verifyAnswer()" (back)="moveToPreviousItem()">
 
     <div class="container mt-4 px-2">
       <div *ngIf="isContentDisplayed">

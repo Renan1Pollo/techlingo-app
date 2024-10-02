@@ -1,14 +1,13 @@
-import { UserService } from './../../services/user.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../types/User.type';
+import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'app-learn-modal',
   standalone: true,
   imports: [],
   templateUrl: './learn-modal.component.html',
-  styleUrls: ['./learn-modal.component.scss']
+  styleUrls: ['./learn-modal.component.scss'],
 })
 export class LearnModalComponent implements OnInit {
   @Input() isModalOpen!: boolean;
@@ -26,7 +25,7 @@ export class LearnModalComponent implements OnInit {
     password: '',
     score: 0,
     lives: 5,
-    creationDate: new Date()
+    creationDate: new Date(),
   };
 
   progressValue: number = 0;
@@ -56,19 +55,11 @@ export class LearnModalComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  updateUserScore(userScore: number) {
-    const newScore = this.user.score + userScore;
-    const updatedUser = { ...this.user, score: newScore };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    this.cdr.detectChanges();
-  }
-
   onBack() {
     this.back.emit();
   }
 
   updateProgress() {
-    this.progressValue = 50;
+    this.progressValue = 0;
   }
-
 }

@@ -1,13 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { AnswersCardComponent } from '../../components/answers-card/answers-card.component';
 import { LearnModalComponent } from '../../components/learn-modal/learn-modal.component';
 import { AnswerResponseDTO } from '../../types/Answer.type';
+import { ContentResponseDTO } from '../../types/Content.type';
 import { LessonResponseDTO } from '../../types/Lesson.type';
 import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
 import { UserService } from './../../services/user.service';
-import { ContentResponseDTO } from '../../types/Content.type';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -27,8 +34,8 @@ export class LessonQuizComponent implements OnInit {
   buttonLabel: string = 'Verificar';
   isModalOpen: boolean = true;
   currentQuestionIndex: number = 0;
-  currentContentIndex: number = 0;  // Novo índice para os conteúdos
-  isContentDisplayed: boolean = true;  // Controla se o conteúdo ou a pergunta é exibido
+  currentContentIndex: number = 0;
+  isContentDisplayed: boolean = true;
   isQuizCompleted: boolean = false;
   incorrectAnswers: QuestionResponseDTO[] = [];
   lives: number = 5;
@@ -36,19 +43,10 @@ export class LessonQuizComponent implements OnInit {
 
   @ViewChild(LearnModalComponent) modalComponent!: LearnModalComponent;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user: User = JSON.parse(userData);
-      this.lives = user.lives;
-      this.userId = user.id;
-    }
-  }
-
-  toggleModal(): void {
-    this.isModalOpen = !this.isModalOpen;
+    this.initializeUserData();
   }
 
   selectAnswer(answer: AnswerResponseDTO): void {
@@ -59,12 +57,12 @@ export class LessonQuizComponent implements OnInit {
   verifyAnswer(): void {
     if (this.isContentDisplayed) {
       this.isContentDisplayed = false;
-      this.buttonLabel = 'Verificar';
+      this.currentContentIndex++;
       return;
     }
 
     if (!this.selectedAnswer || this.feedbackMessage) {
-      this.resetForNextQuestion();
+      this.prepareNextQuestion();
       return;
     }
 
@@ -76,19 +74,43 @@ export class LessonQuizComponent implements OnInit {
     this.buttonLabel = 'Continuar';
   }
 
+  moveToPreviousItem(): void {
+    if (this.currentContentIndex === 0) {
+      return;
+    }
+
+    this.currentContentIndex--;
+    this.isContentDisplayed = !this.isContentDisplayed;
+    this.clearSelection();
+  }
+
+  toggleModal(): void {
+    this.isModalOpen = !this.isModalOpen;
+  }
+
+  private initializeUserData(): void {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user: User = JSON.parse(userData);
+      this.lives = user.lives;
+      this.userId = user.id;
+    }
+  }
+
   private displayFeedback(): void {
     this.feedbackMessage = this.selectedAnswer?.correct
       ? `Resposta correta! ${this.selectedAnswer.feedbackText}`
       : `Resposta incorreta. ${this.selectedAnswer!.feedbackText}`;
   }
 
-  private resetForNextQuestion(): void {
+  private prepareNextQuestion(): void {
     this.buttonLabel = 'Verificar';
-    this.moveToNextItem();
+    this.advanceToNextItem();
   }
 
-  private moveToNextItem(): void {
+  private advanceToNextItem(): void {
     if (this.isContentDisplayed) {
+      this.currentContentIndex++;
       this.isContentDisplayed = false;
     } else if (this.hasMoreQuestions()) {
       this.isContentDisplayed = true;
@@ -98,36 +120,15 @@ export class LessonQuizComponent implements OnInit {
     }
   }
 
-  private hasMoreQuestions(): boolean {
-    return this.currentQuestionIndex < this.questions.length - 1;
-  }
-
   private loadNextQuestion(): void {
     this.currentQuestionIndex++;
     this.clearSelection();
   }
 
-  moveToPreviousQuestion(): void {
-    if (this.currentQuestionIndex > 0) {
-      this.currentQuestionIndex--;
-      this.clearSelection();
-    }
-  }
-
-  private clearSelection(): void {
-    this.selectedAnswer = null;
-    this.clearFeedback();
-  }
-
-  private clearFeedback(): void {
-    this.feedbackMessage = null;
-  }
-
   private completeQuiz(): void {
     if (this.isQuizCompleted) {
       this.updateLivesInBD();
-      this.updateUserScoreInModal();
-      this.increaseScore();
+      this.updateUserScoreInBD();
       this.finishLesson();
     }
 
@@ -140,7 +141,7 @@ export class LessonQuizComponent implements OnInit {
   }
 
   private finishLesson(): void {
-    this.lessonCompleted.emit(this.lives)
+    this.lessonCompleted.emit(this.lives);
     this.toggleModal();
   }
 
@@ -149,7 +150,7 @@ export class LessonQuizComponent implements OnInit {
     this.storeWrongAnswer();
   }
 
-  decreaseLives(): void {
+  private decreaseLives(): void {
     this.lives--;
     this.updateLivesInModal();
 
@@ -166,41 +167,45 @@ export class LessonQuizComponent implements OnInit {
     }
   }
 
-  private updateLivesInModal(): void {
-    this.modalComponent.decreaseLives(this.lives);
-  }
-
-  private updateUserScoreInModal(): void {
-    this.modalComponent.updateUserScore(this.selectedLesson.points);
-  }
-
-  private updateLivesInBD(): void {
-    this.userService.updateLives(this.userId, this.lives).subscribe({
-      next: (result) => {
-        console.log('Lives updated successfully:', result);
-      },
-      error: (error) => {
-        console.error('Error updating lives:', error);
-      }
-    });
-  }
-
-  private increaseScore(): void {
-    this.userService.increaseScore(this.userId, this.selectedLesson.points).subscribe({
-      next: (result) => {
-        console.log('Score updated successfully:', result);
-      },
-      error: (error) => {
-        console.error('Error updating score:', error);
-      }
-    });
-  }
-
   private retryIncorrectAnswers(): void {
     this.questions = [...this.incorrectAnswers];
     this.incorrectAnswers = [];
     this.currentQuestionIndex = 0;
     this.isQuizCompleted = false;
     this.clearSelection();
+  }
+
+  private hasMoreQuestions(): boolean {
+    return this.currentQuestionIndex < this.questions.length - 1;
+  }
+
+  private clearSelection(): void {
+    this.selectedAnswer = null;
+    this.clearFeedback();
+  }
+
+  private clearFeedback(): void {
+    this.feedbackMessage = null;
+  }
+
+  private updateLivesInModal(): void {
+    this.modalComponent.decreaseLives(this.lives);
+  }
+
+  private updateLivesInBD(): void {
+    this.userService.updateLives(this.userId, this.lives).subscribe({
+      next: (result) => console.log('Lives updated successfully:', result),
+      error: (error) => console.error('Error updating lives:', error),
+    });
+  }
+
+  private updateUserScoreInBD(): void {
+    this.userService
+      .increaseScore(this.userId, this.selectedLesson.points)
+      .subscribe({
+        next: (response: User) =>
+          localStorage.setItem('user', JSON.stringify(response)),
+        error: (error) => console.error('Erro:', error.message),
+      });
   }
 }

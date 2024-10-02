@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
+import { User } from '../types/User.type';
 
 @Injectable({
   providedIn: 'root',
@@ -31,9 +32,9 @@ export class UserService {
     });
   }
 
-  increaseScore(userId: number, points: number): Observable<any> {
+  increaseScore(userId: number, points: number): Observable<User> {
     const params = this.createHttpParams({ points });
-    return this.http.put<any>(`${this.apiUrl}/${userId}/score`, null, {
+    return this.http.put<User>(`${this.apiUrl}/${userId}/score`, null, {
       params,
     });
   }
