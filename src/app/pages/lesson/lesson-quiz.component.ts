@@ -15,6 +15,7 @@ import { LessonResponseDTO } from '../../types/Lesson.type';
 import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
 import { UserService } from './../../services/user.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -125,11 +126,18 @@ export class LessonQuizComponent implements OnInit {
     this.clearSelection();
   }
 
-  private completeQuiz(): void {
+  private async completeQuiz(): Promise<void> {
     if (this.isQuizCompleted) {
-      this.updateLivesInBD();
-      this.updateUserScoreInBD();
-      this.finishLesson();
+      try {
+        await Promise.all([
+          this.updateLivesInBD(),
+          this.updateUserScoreInBD()
+        ]);
+
+        this.finishLesson();
+      } catch (error) {
+        console.error('Erro ao finalizar quiz:', error);
+      }
     }
 
     if (this.incorrectAnswers.length > 0) {
@@ -192,20 +200,21 @@ export class LessonQuizComponent implements OnInit {
     this.modalComponent.decreaseLives(this.lives);
   }
 
-  private updateLivesInBD(): void {
-    this.userService.updateLives(this.userId, this.lives).subscribe({
-      next: (result) => console.log('Lives updated successfully:', result),
-      error: (error) => console.error('Error updating lives:', error),
-    });
+  private async updateLivesInBD(): Promise<void> {
+    try {
+      const result = await lastValueFrom(this.userService.updateLives(this.userId, this.lives));
+      console.log('Vidas atualizadas com sucesso:', result);
+    } catch (error) {
+      console.error('Erro ao atualizar vidas:', error);
+    }
   }
 
-  private updateUserScoreInBD(): void {
-    this.userService
-      .increaseScore(this.userId, this.selectedLesson.points)
-      .subscribe({
-        next: (response: User) =>
-          localStorage.setItem('user', JSON.stringify(response)),
-        error: (error) => console.error('Erro:', error.message),
-      });
+  private async updateUserScoreInBD(): Promise<void> {
+    try {
+      const response: User = await lastValueFrom(this.userService.increaseScore(this.userId, this.selectedLesson.points));
+      localStorage.setItem('user', JSON.stringify(response));
+    } catch (error) {
+      console.error('Erro ao atualizar pontuação:');
+    }
   }
 }

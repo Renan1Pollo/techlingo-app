@@ -93,9 +93,11 @@ export class LearnComponent implements OnInit {
     });
   }
 
-  onLessonCompleted(livesLeft: number): void {
-    this.user.lives = livesLeft;
-    localStorage.setItem('user', JSON.stringify(this.user));
+  onLessonCompleted(): void {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
   }
 
   private fetchUserEnrollment(): void {
