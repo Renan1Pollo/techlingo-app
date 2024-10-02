@@ -62,6 +62,10 @@ export class LessonQuizComponent implements OnInit {
       return;
     }
 
+    if (!this.selectedAnswer) {
+      return;
+    }
+
     if (!this.selectedAnswer || this.feedbackMessage) {
       this.prepareNextQuestion();
       return;
@@ -107,6 +111,7 @@ export class LessonQuizComponent implements OnInit {
   private prepareNextQuestion(): void {
     this.buttonLabel = 'Verificar';
     this.advanceToNextItem();
+    this.updateProgress();
   }
 
   private advanceToNextItem(): void {
@@ -121,9 +126,18 @@ export class LessonQuizComponent implements OnInit {
     }
   }
 
+  private updateProgress(): void {
+    this.modalComponent.progressValue = this.calculateProgress();
+  }
+
+  private calculateProgress(): number {
+    return ((this.currentQuestionIndex) / this.questions.length) * 100;
+  }
+
   private loadNextQuestion(): void {
     this.currentQuestionIndex++;
     this.clearSelection();
+    this.updateProgress();
   }
 
   private async completeQuiz(): Promise<void> {
@@ -144,6 +158,7 @@ export class LessonQuizComponent implements OnInit {
       alert('Vamos rever o que você errou!');
       this.retryIncorrectAnswers();
     } else {
+      this.modalComponent.progressValue = 100;
       this.isQuizCompleted = true;
     }
   }

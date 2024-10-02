@@ -7,7 +7,7 @@
         <div class="row mb-3">
           <div class="col-12 text-center">
             <h3 class="fw-bold fs-5">{{ contents[currentContentIndex].title }}</h3>
-            <p>{{ contents[currentContentIndex].text }}</p>
+            <p [innerHTML]="contents[currentContentIndex].text" class="text-left max-text"></p>
           </div>
         </div>
       </div>
