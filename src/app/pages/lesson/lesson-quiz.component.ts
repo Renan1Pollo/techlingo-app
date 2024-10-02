@@ -58,7 +58,6 @@ export class LessonQuizComponent implements OnInit {
 
   verifyAnswer(): void {
     if (this.isContentDisplayed) {
-      // Se conteúdo está sendo exibido, alterna para a pergunta
       this.isContentDisplayed = false;
       this.buttonLabel = 'Verificar';
       return;
@@ -90,9 +89,9 @@ export class LessonQuizComponent implements OnInit {
 
   private moveToNextItem(): void {
     if (this.isContentDisplayed) {
-      this.isContentDisplayed = false; // Alterna para a pergunta
+      this.isContentDisplayed = false;
     } else if (this.hasMoreQuestions()) {
-      this.isContentDisplayed = true;  // Alterna para o conteúdo
+      this.isContentDisplayed = true;
       this.loadNextQuestion();
     } else {
       this.completeQuiz();
