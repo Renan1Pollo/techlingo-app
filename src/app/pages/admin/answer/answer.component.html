@@ -1,30 +1,29 @@
 <div class="container-fluid d-flex h-100">
   <app-sidebar-menu-admin></app-sidebar-menu-admin>
-
   <div class="container">
-    <h1 class="text-center my-5">Consulta de Perguntas e Respostas</h1>
+    <h1 class="text-center my-5">Consulta de Respostas</h1>
     <div class="table-responsive">
       <table class="table table-striped text-center">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Codigo</th>
-            <th scope="col">Nome da lição</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Indice</th>
+            <th scope="col">Pergunta</th>
+            <th scope="col">Resposta</th>
+            <th scope="col">Correta</th>
             <th scope="col">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let question of questions">
-            <td scope="row"> {{ question.id }}</td>
-            <td>{{ question.lesson.title }}</td>
-            <td>{{ question.description }}</td>
-            <td>{{ question.index }}</td>
+          <tr *ngFor="let answer of answers">
+            <td scope="row"> {{ answer.id }}</td>
+            <td>{{ answer.question?.description }}</td>
+            <td>{{ answer.text }}</td>
+            <td>{{ answer.correct }}</td>
             <td>
-              <button class="btn btn-primary btn-sm mx-2" (click)="editQuestion(question.id!)">
+              <button class="btn btn-primary btn-sm mx-2" (click)="editAnswer(answer.id!)">
                 <i class="fas fa-edit"></i> Editar
               </button>
-              <button class="btn btn-danger btn-sm mx-2" (click)="deleteQuestion(question.id!)">
+              <button class="btn btn-danger btn-sm mx-2" (click)="deleteAnswer(answer.id!)">
                 <i class="fas fa-trash"></i> Excluir
               </button>
             </td>

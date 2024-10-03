@@ -23,6 +23,7 @@ import { LessonQuizComponent } from './pages/lesson/lesson-quiz.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { AnswerComponent } from './pages/admin/answer/answer.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -55,6 +56,8 @@ export const routes: Routes = [
   { path: 'admin/questions', component: QuestionComponent },
   { path: 'admin/questions/add', component: AddQuestionComponent },
   { path: 'admin/questions/:id/edit', component: EditQuestionComponent },
+
+  { path: 'admin/answers', component: AnswerComponent },
 
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
