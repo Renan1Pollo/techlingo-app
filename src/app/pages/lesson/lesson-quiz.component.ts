@@ -91,6 +91,7 @@ export class LessonQuizComponent implements OnInit {
 
   toggleModal(): void {
     this.isModalOpen = !this.isModalOpen;
+    this.updateLivesInBD();
   }
 
   private initializeUserData(): void {
@@ -176,6 +177,7 @@ export class LessonQuizComponent implements OnInit {
   private decreaseLives(): void {
     this.lives--;
     this.updateLivesInModal();
+    this.updateLivesInBD();
 
     if (this.lives === 0) {
       alert('Você perdeu todas as suas vidas!');
