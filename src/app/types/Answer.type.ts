@@ -4,7 +4,7 @@ import { Question } from './Question.type';
 export type Answer = {
   id: number | null;
   text: string;
-  question: Question;
+  question: Question | null;
   feedbackText: string;
   correct: boolean;
 };
