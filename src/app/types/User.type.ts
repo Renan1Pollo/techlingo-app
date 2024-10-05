@@ -6,4 +6,5 @@ export type User = {
   score: number;
   lives: number;
   creationDate: Date;
+  lastAccessDate: Date;
 };

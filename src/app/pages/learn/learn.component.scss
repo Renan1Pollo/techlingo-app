@@ -99,3 +99,24 @@
   border-radius: 8px;
   object-fit: cover;
 }
+
+.report-button {
+  right: -2%;
+  top: 7%;
+  width: 200px;
+  padding: 9px;
+  background-color: var(--color-light-purple);
+  color: var(--color-snow);
+  border: 0px solid rgb(77, 75, 75);
+  box-shadow: 0 4px 0 rgba(50, 20, 70, 0.7);
+  border-radius: 15px;
+  font-size: 900;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 rgba(50, 20, 70, 0.7);
+    background-color: var(--color-light-purple);
+    color: var(--color-snow);
+  }
+}

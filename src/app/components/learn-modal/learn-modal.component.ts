@@ -26,6 +26,7 @@ export class LearnModalComponent implements OnInit {
     score: 0,
     lives: 5,
     creationDate: new Date(),
+    lastAccessDate:  new Date()
   };
 
   progressValue: number = 0;

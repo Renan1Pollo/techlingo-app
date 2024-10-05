@@ -227,8 +227,10 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateLivesInBD(): Promise<void> {
     try {
-      const result = await lastValueFrom(this.userService.updateLives(this.userId, this.lives));
-      console.log('Vidas atualizadas com sucesso:', result);
+      localStorage.clear();
+      const response: User = await lastValueFrom(this.userService.updateLives(this.userId, this.lives));
+      localStorage.setItem('user', JSON.stringify(response));
+      console.log('Vidas atualizadas com sucesso:', response.lives);
     } catch (error) {
       console.error('Erro ao atualizar vidas:', error);
     }
@@ -236,6 +238,7 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateUserScoreInBD(): Promise<void> {
     try {
+      localStorage.clear();
       const response: User = await lastValueFrom(this.userService.increaseScore(this.userId, this.selectedLesson.points));
       localStorage.setItem('user', JSON.stringify(response));
     } catch (error) {

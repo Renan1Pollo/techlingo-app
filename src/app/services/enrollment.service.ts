@@ -22,6 +22,10 @@ export class EnrollmentService {
     return this.http.post<EnrollmentResponseDTO>(env.enrollmentApiUrl, data);
   }
 
+  generateReport(unitId: number): Observable<Blob> {
+    return this.http.get(`${env.enrollmentApiUrl}/generate-report`, { responseType: 'blob' });
+  }
+
   getAllEnrollments(): Observable<EnrollmentResponseDTO[]> {
     return this.http.get<EnrollmentResponseDTO[]>(env.enrollmentApiUrl);
   }

@@ -87,6 +87,16 @@ export class LearnComponent implements OnInit {
   }
 
   openLesson(lesson: any): void {
+    if (this.user.lives === 0) {
+      const minutesRemaining = this.calculateTime();
+      if (minutesRemaining > 0) {
+        alert(`Que pena, suas vidas acabaram! Por favor, aguarde ${minutesRemaining} minutos para ganhar uma nova vida e tente novamente.`);
+      } else {
+        alert('Que pena, suas vidas acabaram! Você já pode ganhar uma nova vida. Recarregue a página.');
+      }
+      return;
+    }
+
     this.selectedLesson = null;
     setTimeout(() => {
       this.selectedLesson = lesson;
@@ -94,10 +104,7 @@ export class LearnComponent implements OnInit {
   }
 
   onLessonCompleted(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      this.user = JSON.parse(userData);
-    }
+    this.initializeUser();
   }
 
   private fetchUserEnrollment(): void {
@@ -132,4 +139,34 @@ export class LearnComponent implements OnInit {
       course: this.selectedCourse,
     };
   }
+
+  private calculateTime(): number {
+    const lastAccess: Date = new Date(this.user.lastAccessDate);
+    const now: Date = new Date();
+    const minutesPassed: number = Math.floor((now.getTime() - lastAccess.getTime()) / (1000 * 60));
+
+    if (minutesPassed >= 10) {
+      const livesToAdd: number = Math.floor(minutesPassed / 10);
+      this.user.lives = Math.min(this.user.lives + livesToAdd, 5);
+
+      if (livesToAdd > 0) {
+        this.user.lastAccessDate = now;
+      }
+      return 0;
+    } else {
+      const minutesRemaining: number = 10 - minutesPassed;
+      return minutesRemaining;
+    }
+  }
+
+  generateReport(unitId: number): void {
+    this.enrollmentService.generateReport(unitId).subscribe((reportData: Blob) => {
+      const blob = new Blob([reportData], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    }, () => {
+      console.error('Erro ao gerar o relatório:');
+    });
+  }
+
 }
