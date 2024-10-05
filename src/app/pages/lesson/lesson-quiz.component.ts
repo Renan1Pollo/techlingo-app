@@ -39,6 +39,7 @@ export class LessonQuizComponent implements OnInit {
   isContentDisplayed: boolean = true;
   isQuizCompleted: boolean = false;
   incorrectAnswers: QuestionResponseDTO[] = [];
+  incorrectContents: ContentResponseDTO[] = [];
   lives: number = 5;
   userId!: number;
 
@@ -186,17 +187,24 @@ export class LessonQuizComponent implements OnInit {
   }
 
   private storeWrongAnswer(): void {
+    const previousContentIndex = this.currentContentIndex - 1;
     const currentQuestion = this.questions[this.currentQuestionIndex];
+    const currentContent = this.contents[previousContentIndex];
     if (!this.incorrectAnswers.includes(currentQuestion)) {
       this.incorrectAnswers.push(currentQuestion);
+      this.incorrectContents.push(currentContent);
     }
   }
 
   private retryIncorrectAnswers(): void {
     this.questions = [...this.incorrectAnswers];
+    this.contents = [...this.incorrectContents];
     this.incorrectAnswers = [];
+    this.incorrectContents = [];
     this.currentQuestionIndex = 0;
+    this.currentContentIndex = 0;
     this.isQuizCompleted = false;
+    this.isContentDisplayed = true;
     this.clearSelection();
   }
 
