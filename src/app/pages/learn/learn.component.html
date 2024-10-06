@@ -16,9 +16,9 @@
 
         <div class="lessons-container mt-5">
           <section class="units-container">
-            <div *ngFor="let lesson of unit.lessonList" class="lesson align-items-center text-center">
+            <div *ngFor="let lesson of unit.lessonList; let index = index" class="lesson align-items-center text-center">
               <div>
-                <button class="lesson-item" (click)="openLesson(lesson)">
+                <button class="lesson-item" [disabled]="index > enrollment.currentLesson" (click)="openLesson(lesson)">
                   <img src="https://d35aaqx5ub95lt.cloudfront.net/images/path/icons/ddd21f172a2db0f5ef169c09b4d3badb.svg" alt="" />
                 </button>
               </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <app-lesson-quiz *ngIf="selectedLesson" [selectedLesson]="selectedLesson" [contents]="selectedLesson.contentList" [questions]="selectedLesson.questionList" (lessonCompleted)="onLessonCompleted()"></app-lesson-quiz>
+    <app-lesson-quiz *ngIf="selectedLesson" (userUpdated)="onUserUpdated($event)" [selectedLesson]="selectedLesson" [enrollment]="enrollment" [contents]="selectedLesson.contentList" [questions]="selectedLesson.questionList" (lessonCompleted)="onLessonCompleted()"></app-lesson-quiz>
 
     <app-modal [isModalOpen]="isModalOpen" (closeModal)="toggleModal()">
       <div class="container mt-5">

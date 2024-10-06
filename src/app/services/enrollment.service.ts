@@ -8,7 +8,7 @@ import { Enrollment, EnrollmentResponseDTO } from '../types/Enrollment.type';
   providedIn: 'root',
 })
 export class EnrollmentService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private createHttpParams(paramsObject: { [key: string]: any }): HttpParams {
     let params = new HttpParams();
@@ -22,8 +22,10 @@ export class EnrollmentService {
     return this.http.post<EnrollmentResponseDTO>(env.enrollmentApiUrl, data);
   }
 
-  generateReport(unitId: number): Observable<Blob> {
-    return this.http.get(`${env.enrollmentApiUrl}/generate-report`, { responseType: 'blob' });
+  generateReport(data: EnrollmentResponseDTO, unitId: number): Observable<Blob> {
+    return this.http.post<Blob>(
+      `${env.enrollmentApiUrl}/generate-report/${unitId}`, data, { responseType: 'blob' as 'json' }
+    );
   }
 
   getAllEnrollments(): Observable<EnrollmentResponseDTO[]> {
@@ -35,12 +37,19 @@ export class EnrollmentService {
   }
 
   getEnrollmentsByUserId(userId: number): Observable<EnrollmentResponseDTO[]> {
-    return this.http.get<EnrollmentResponseDTO[]>(`${env.enrollmentApiUrl}/byUser/${userId}`);
+    return this.http.get<EnrollmentResponseDTO[]>(
+      `${env.enrollmentApiUrl}/byUser/${userId}`
+    );
   }
 
-  getEnrollmentByUserAndCourse(userId: number, courseId: number): Observable<EnrollmentResponseDTO> {
+  getEnrollmentByUserAndCourse(
+    userId: number,
+    courseId: number
+  ): Observable<EnrollmentResponseDTO> {
     const params = this.createHttpParams({ userId, courseId });
-    return this.http.get<EnrollmentResponseDTO>(`${env.enrollmentApiUrl}/byUserAndCourse`, { params });
+    return this.http.get<EnrollmentResponseDTO>(
+      `${env.enrollmentApiUrl}/byUserAndCourse`,
+      { params }
+    );
   }
-
 }

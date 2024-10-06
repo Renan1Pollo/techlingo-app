@@ -35,13 +35,20 @@ export class LearnComponent implements OnInit {
   courses: CourseResponseDTO[] = [];
   selectedCourse!: CourseResponseDTO;
   selectedLesson: any;
-  enrollment!: Enrollment;
   user!: User;
+
+  enrollment: EnrollmentResponseDTO = {
+    id: 0,
+    user: this.user,
+    course: {} as CourseResponseDTO,
+    enrollmentDate: new Date(),
+    currentLesson: 0,
+  };
 
   constructor(
     private courseService: CourseService,
     private enrollmentService: EnrollmentService
-  ) {}
+  ) { }
 
   @HostListener('window:resize')
   onResize() {
@@ -61,6 +68,7 @@ export class LearnComponent implements OnInit {
 
   private initializeUser(): void {
     const userData = localStorage.getItem('user');
+    console.log(userData);
     this.user = userData ? JSON.parse(userData) : ({} as User);
   }
 
@@ -86,6 +94,10 @@ export class LearnComponent implements OnInit {
     this.toggleModal();
   }
 
+  onUserUpdated(updatedUser: User): void {
+    this.user = updatedUser;
+  }
+
   openLesson(lesson: any): void {
     if (this.user.lives === 0) {
       const minutesRemaining = this.calculateTime();
@@ -105,6 +117,7 @@ export class LearnComponent implements OnInit {
 
   onLessonCompleted(): void {
     this.initializeUser();
+    this.getEnrollmentInLocalStorage();
   }
 
   private fetchUserEnrollment(): void {
@@ -118,9 +131,9 @@ export class LearnComponent implements OnInit {
     ).subscribe();
   }
 
-  private handleEnrollmentFound(result: Enrollment): void {
+  private handleEnrollmentFound(result: EnrollmentResponseDTO): void {
     this.enrollment = result;
-    console.log('Enrollment found:', this.enrollment);
+    this.storeEnrollmentInLocalStorage(result);
   }
 
   private registerUserInCourse(): void {
@@ -128,8 +141,18 @@ export class LearnComponent implements OnInit {
     this.enrollmentService.registerForCourse(enrollmentData).subscribe({
       next: (enrollment: EnrollmentResponseDTO) => {
         this.enrollment = enrollment;
+        this.storeEnrollmentInLocalStorage(enrollment);
       },
     });
+  }
+
+  private storeEnrollmentInLocalStorage(enrollment: Enrollment | EnrollmentResponseDTO): void {
+    localStorage.setItem("enrollment", JSON.stringify(enrollment));
+  }
+
+  private getEnrollmentInLocalStorage(): void {
+    const enrollment = localStorage.getItem("enrollment");
+    this.enrollment = enrollment ? JSON.parse(enrollment) : ({} as Enrollment);
   }
 
   private createEnrollmentData(): Enrollment {
@@ -160,12 +183,12 @@ export class LearnComponent implements OnInit {
   }
 
   generateReport(unitId: number): void {
-    this.enrollmentService.generateReport(unitId).subscribe((reportData: Blob) => {
+    this.enrollmentService.generateReport(this.enrollment, unitId).subscribe((reportData: Blob) => {
       const blob = new Blob([reportData], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       window.open(url, '_blank');
-    }, () => {
-      console.error('Erro ao gerar o relatório:');
+    }, (error) => {
+      console.error('Erro ao gerar o relatório:', error);
     });
   }
 

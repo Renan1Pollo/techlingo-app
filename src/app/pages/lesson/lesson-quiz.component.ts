@@ -1,3 +1,4 @@
+import { EnrollmentService } from './../../services/enrollment.service';
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -16,6 +17,7 @@ import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
 import { UserService } from './../../services/user.service';
 import { lastValueFrom } from 'rxjs';
+import { EnrollmentResponseDTO } from '../../types/Enrollment.type';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -28,7 +30,9 @@ export class LessonQuizComponent implements OnInit {
   @Input() questions: QuestionResponseDTO[] = [];
   @Input() contents: ContentResponseDTO[] = [];
   @Input() selectedLesson!: LessonResponseDTO;
+  @Input() enrollment!: EnrollmentResponseDTO;
   @Output() lessonCompleted = new EventEmitter<number>();
+  @Output() userUpdated = new EventEmitter<User>();
 
   selectedAnswer: AnswerResponseDTO | null = null;
   feedbackMessage: string | null = null;
@@ -45,7 +49,7 @@ export class LessonQuizComponent implements OnInit {
 
   @ViewChild(LearnModalComponent) modalComponent!: LearnModalComponent;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private enrollmentService: EnrollmentService) {}
 
   ngOnInit(): void {
     this.initializeUserData();
@@ -92,7 +96,13 @@ export class LessonQuizComponent implements OnInit {
 
   toggleModal(): void {
     this.isModalOpen = !this.isModalOpen;
-    this.updateLivesInBD();
+    this.updateLivesInBD().then(() => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const updatedUser: User = JSON.parse(userData);
+        this.userUpdated.emit(updatedUser);
+      }
+    });
   }
 
   private initializeUserData(): void {
@@ -147,7 +157,8 @@ export class LessonQuizComponent implements OnInit {
       try {
         await Promise.all([
           this.updateLivesInBD(),
-          this.updateUserScoreInBD()
+          this.updateUserScoreInBD(),
+          this.updateEnrollmentInBd(),
         ]);
 
         this.finishLesson();
@@ -230,7 +241,6 @@ export class LessonQuizComponent implements OnInit {
       localStorage.clear();
       const response: User = await lastValueFrom(this.userService.updateLives(this.userId, this.lives));
       localStorage.setItem('user', JSON.stringify(response));
-      console.log('Vidas atualizadas com sucesso:', response.lives);
     } catch (error) {
       console.error('Erro ao atualizar vidas:', error);
     }
@@ -243,6 +253,16 @@ export class LessonQuizComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(response));
     } catch (error) {
       console.error('Erro ao atualizar pontuação:');
+    }
+  }
+
+  private async updateEnrollmentInBd(): Promise<void> {
+    try {
+      // localStorage.clear();
+      // const response: EnrollmentResponseDTO = this.enrollmentService.
+      // localStorage.setItem('enrollment', JSON.stringify(response));
+    } catch (error) {
+      console.error('Erro ao atualizar Mátricula:');
     }
   }
 }
