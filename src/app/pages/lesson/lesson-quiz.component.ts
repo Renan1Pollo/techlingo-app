@@ -238,7 +238,7 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateLivesInBD(): Promise<void> {
     try {
-      localStorage.clear();
+      localStorage.removeItem('user');
       const response: User = await lastValueFrom(this.userService.updateLives(this.userId, this.lives));
       localStorage.setItem('user', JSON.stringify(response));
     } catch (error) {
@@ -248,7 +248,7 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateUserScoreInBD(): Promise<void> {
     try {
-      localStorage.clear();
+      localStorage.removeItem('user');
       const response: User = await lastValueFrom(this.userService.increaseScore(this.userId, this.selectedLesson.points));
       localStorage.setItem('user', JSON.stringify(response));
     } catch (error) {
@@ -258,9 +258,8 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateEnrollmentInBd(): Promise<void> {
     try {
-      // localStorage.clear();
-      // const response: EnrollmentResponseDTO = this.enrollmentService.
-      // localStorage.setItem('enrollment', JSON.stringify(response));
+      this.enrollment.currentLesson++
+      localStorage.setItem('enrollment', JSON.stringify(this.enrollment));
     } catch (error) {
       console.error('Erro ao atualizar Mátricula:');
     }

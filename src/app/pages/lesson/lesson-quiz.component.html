@@ -8,6 +8,7 @@
           <div class="col-12 text-center">
             <h3 class="fw-bold fs-5">{{ contents[currentContentIndex].title }}</h3>
             <p [innerHTML]="contents[currentContentIndex].text" class="text-left max-text"></p>
+            <img class="img-content" *ngIf="contents[currentContentIndex]?.image" [src]="contents[currentContentIndex].image"  alt="Conteúdo relacionado">
           </div>
         </div>
       </div>
@@ -15,7 +16,7 @@
       <div *ngIf="!isContentDisplayed">
         <div class="row mb-3">
           <div class="col-12 text-center">
-            <h3 class="fw-bold fs-5">{{ questions[currentQuestionIndex].description }}</h3>
+            <h3 class="fw-bold fs-5">{{ questions[currentQuestionIndex]?.description }}</h3>
           </div>
         </div>
 
