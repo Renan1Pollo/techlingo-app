@@ -12,13 +12,14 @@ import { Lesson } from '../../../../types/Lesson.type';
 import { Question } from './../../../../types/Question.type';
 import { Answer } from './../../../../types/Answer.type';
 import { CommonModule } from '@angular/common';
+import { CheckboxComponent } from "../../../../shared/checkbox/checkbox.component";
 
 @Component({
   selector: 'app-edit-question',
   standalone: true,
   templateUrl: './edit-question.component.html',
   styleUrls: ['./edit-question.component.scss'],
-  imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent, CommonModule],
+  imports: [SidebarMenuAdminComponent, InputComponent, SelectionInputComponent, CommonModule, CheckboxComponent],
 })
 export class EditQuestionComponent implements OnInit {
   form!: FormGroup;
@@ -156,12 +157,10 @@ export class EditQuestionComponent implements OnInit {
       index: this.form.value.index,
     };
 
-    console.log('Dados enviados para update:', questionData);
-
     this.questionService.updateQuestion(this.questionId, questionData).subscribe({
       next: (response: Question) => {
         this.updateAnswers(response);
-        this.showAlert('Questão criada com sucesso!');
+        this.showAlert('Questão atualizada com sucesso!');
         this.navigateBack();
       },
       error: (error: HttpErrorResponse) => this.handleError(error, 'saving question data')
@@ -169,20 +168,16 @@ export class EditQuestionComponent implements OnInit {
   }
 
   private updateAnswers(question: Question): void {
-    this.answers.forEach((answer, index) => {
-        if (answer.id) {
-            this.answerService.updateAnswer(answer.id, { ...answer, question: question }).subscribe({
-                next: () => console.log(`Resposta ${index + 1} atualizada com sucesso!`),
-                error: (error: HttpErrorResponse) => this.handleError(error, `updating answer ${index + 1}`)
-            });
-        } else {
-            this.answerService.createAnswer({ ...answer, question: question }).subscribe({
-                next: () => console.log(`Resposta ${index + 1} criada com sucesso!`),
-                error: (error: HttpErrorResponse) => this.handleError(error, `creating answer ${index + 1}`)
-            });
-        }
+    const updatedAnswers: Answer[] = [...this.answers];
+
+    updatedAnswers.forEach((answer, index) => {
+        this.answerService.createAnswer({ ...answer, question: question }).subscribe({
+          next: () => console.log(`Resposta ${index + 1} criada com sucesso!`),
+          error: (error: HttpErrorResponse) => this.handleError(error, `creating answer ${index + 1}`)
+        });
+
     });
-}
+  }
 
   private handleError(error: HttpErrorResponse, context: string): void {
     console.error(`Error ${context}`, error);
