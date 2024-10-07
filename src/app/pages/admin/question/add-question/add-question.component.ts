@@ -1,17 +1,18 @@
+import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
+import { AnswerService } from '../../../../services/answer.service';
 import { LessonService } from '../../../../services/lesson.service';
 import { QuestionService } from '../../../../services/question.service';
-import { AnswerService } from '../../../../services/answer.service';
-import { SelectionInputComponent } from '../../../../shared/selection-input/selection-input.component';
+import { CheckboxComponent } from '../../../../shared/checkbox/checkbox.component';
 import { InputComponent } from '../../../../shared/input/input.component';
-import { SidebarMenuAdminComponent } from '../../../../components/sidebar-menu-admin/sidebar-menu-admin.component';
-import { CommonModule } from '@angular/common';
-import { Question } from './../../../../types/Question.type';
-import { Lesson } from '../../../../types/Lesson.type';
+import { SelectionInputComponent } from '../../../../shared/selection-input/selection-input.component';
 import { Answer } from '../../../../types/Answer.type';
+import { Lesson } from '../../../../types/Lesson.type';
+import { Question } from './../../../../types/Question.type';
 
 @Component({
   selector: 'app-add-question',
@@ -23,6 +24,7 @@ import { Answer } from '../../../../types/Answer.type';
     InputComponent,
     SidebarMenuAdminComponent,
     CommonModule,
+    CheckboxComponent,
   ],
 })
 export class AddQuestionComponent implements OnInit {

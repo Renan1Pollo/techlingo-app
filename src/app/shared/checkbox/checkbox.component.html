@@ -1,0 +1,10 @@
+<div [formGroup]="form">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    [formControlName]="controlName"
+    value=""
+    [id]="controlName"
+  />
+  <label class="form-check-label ps-2" [for]="controlName"> {{ label }} </label>
+</div>
