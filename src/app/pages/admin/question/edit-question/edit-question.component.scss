@@ -3,10 +3,6 @@ header {
   padding: 18px;
 }
 
-.input-login {
-  width: 100%;
-}
-
 .form {
   margin-top: 10%;
 }
@@ -26,3 +22,17 @@ header {
 .btn {
   width: 40%;
 }
+
+.btn-add-answer {
+  width: 20%;
+  height: auto;
+}
+
+.btn-close {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+

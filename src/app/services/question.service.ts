@@ -14,8 +14,8 @@ export class QuestionService {
     return this.http.post<Question>(env.questionApiUrl, data);
   }
 
-  updateQuestion(questionId: number, data: Question): Observable<any> {
-    return this.http.put<any>(`${env.questionApiUrl}/${data.id}`, data);
+  updateQuestion(questionId: number, data: Question): Observable<Question> {
+    return this.http.put<Question>(`${env.questionApiUrl}/${questionId}`, data);
   }
 
   deleteQuestion(id: number): Observable<any> {
