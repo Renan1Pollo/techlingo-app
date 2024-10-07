@@ -10,16 +10,20 @@ import { Question, QuestionResponseDTO } from '../types/Question.type';
 export class QuestionService {
   constructor(private http: HttpClient) { }
 
-  createQuestion(data: Question): Observable<any> {
-    return this.http.post<any>(env.questionApiUrl, data);
+  createQuestion(data: Question): Observable<Question> {
+    return this.http.post<Question>(env.questionApiUrl, data);
   }
 
-  updateQuestion(data: Question): Observable<any> {
+  updateQuestion(questionId: number, data: Question): Observable<any> {
     return this.http.put<any>(`${env.questionApiUrl}/${data.id}`, data);
   }
 
   deleteQuestion(id: number): Observable<any> {
     return this.http.delete<any>(`${env.questionApiUrl}/${id}`);
+  }
+
+  findQuestionById(id: number): Observable<Question> {
+    return this.http.get<Question>(`${env.questionApiUrl}/${id}`);
   }
 
   getAllQuestions(): Observable<QuestionResponseDTO[]> {

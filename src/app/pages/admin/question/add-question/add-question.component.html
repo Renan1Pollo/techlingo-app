@@ -5,12 +5,30 @@
     <div style="height: 10%"></div>
     <h1 class="form-title text-center mb-4">Adicionar Nova Pergunta e Respostas</h1>
     <div class="form">
-      <app-selection-input [form]="form" label="Lição" controlName="lesson" [values]="lessonsTitle" />
-      <app-input [form]="form" label="Descrição" controlName="description" />
-      <app-input [form]="form" label="Indice" controlName="index" />
+      <app-selection-input [form]="form" label="Lição" controlName="lesson" [values]="lessonsTitles"></app-selection-input>
+      <app-input [form]="form" label="Descrição" controlName="description"></app-input>
+      <app-input [form]="form" label="Índice" controlName="index"></app-input>
       <button type="button" class="btn btn-add-answer btn-primary btn-sm p-2 mb-2" (click)="openAnswerModal()">Adicionar Resposta</button>
+
+      <div class="answers-list mt-4">
+        <h2>Respostas Adicionadas</h2>
+        <ul class="list-group">
+          <li *ngFor="let answer of answersToSave; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>Resposta:</strong> {{ answer.text }}<br />
+              <strong>Feedback:</strong> {{ answer.feedbackText }}<br />
+              <strong>Correta:</strong> {{ answer.correct ? 'Sim' : 'Não' }}
+            </div>
+            <div>
+              <button type="button" class="btn btn-warning btn-sm me-2" (click)="openAnswerModal(answer, i)">Editar</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeAnswer(i)">Remover</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
       <div class="d-flex justify-content-between">
-        <button type="button" class="btn btn-danger p-2a mt-2" (click)="goBack()">
+        <button type="button" class="btn btn-danger p-2 mt-2" (click)="goBack()">
           Voltar
         </button>
         <button type="button" class="btn btn-primary p-2 mt-2" (click)="saveQuestion()">
@@ -20,25 +38,23 @@
     </div>
   </div>
 
-  <!-- Answer Modal -->
   <div *ngIf="isAnswerModalOpen" class="modal show d-block" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h5 class="modal-title w-100">Adicionar Resposta</h5>
+          <h5 class="modal-title w-100">{{ isEditingAnswer ? 'Editar Resposta' : 'Adicionar Resposta' }}</h5>
           <button type="button" class="btn-close btn-sm border-0" (click)="closeAnswerModal()"></button>
         </div>
         <div class="modal-body">
-          <app-input [form]="answerForm" label="Texto da Resposta" controlName="answerText"></app-input>
+          <app-input [form]="answerForm" label="Texto da Resposta" controlName="text"></app-input>
           <app-input [form]="answerForm" label="Feedback" controlName="feedbackText"></app-input>
-          <!-- <app-checkbox [form]="answerForm" label="Resposta Correta" controlName="isCorrect"></app-checkbox> -->
+          <!-- <app-checkbox [form]="answerForm" label="Resposta Correta" controlName="correct"></app-checkbox> -->
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-danger" (click)="closeAnswerModal()">Fechar</button>
-          <button type="button" class="btn btn-primary ms-auto" (click)="addAnswer()">Salvar Resposta</button>
+          <button type="button" class="btn btn-primary ms-auto" (click)="saveAnswer()">{{ isEditingAnswer ? 'Atualizar Resposta' : 'Salvar Resposta' }}</button>
         </div>
       </div>
     </div>
   </div>
-
 </div>

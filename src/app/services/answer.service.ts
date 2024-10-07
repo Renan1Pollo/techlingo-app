@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { env } from '../../environment/environment';
@@ -10,6 +10,14 @@ import { Answer, AnswerResponseDTO } from './../types/Answer.type';
 export class AnswerService {
   constructor(private http: HttpClient) { }
 
+  private createHttpParams(paramsObject: { [key: string]: any }): HttpParams {
+    let params = new HttpParams();
+    Object.keys(paramsObject).forEach((key) => {
+      params = params.set(key, paramsObject[key].toString());
+    });
+    return params;
+  }
+
   createAnswer(data: Answer): Observable<any> {
     return this.http.post<any>(env.answerApiUrl, data);
   }
@@ -20,6 +28,11 @@ export class AnswerService {
 
   deleteAnswer(id: number): Observable<any> {
     return this.http.delete<any>(`${env.answerApiUrl}/${id}`);
+  }
+
+  findAnswerByQuestionId(questionId: number): Observable<Answer[]> {
+    const params = this.createHttpParams({ questionId });
+    return this.http.get<Answer[]>(`${env.answerApiUrl}/questions`, { params });
   }
 
   getAllAnswers(): Observable<AnswerResponseDTO[]> {
