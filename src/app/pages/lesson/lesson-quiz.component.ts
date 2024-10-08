@@ -17,7 +17,7 @@ import { QuestionResponseDTO } from '../../types/Question.type';
 import { User } from '../../types/User.type';
 import { UserService } from './../../services/user.service';
 import { lastValueFrom } from 'rxjs';
-import { EnrollmentResponseDTO } from '../../types/Enrollment.type';
+import { Enrollment, EnrollmentResponseDTO } from '../../types/Enrollment.type';
 
 @Component({
   selector: 'app-lesson-quiz',
@@ -31,6 +31,8 @@ export class LessonQuizComponent implements OnInit {
   @Input() contents: ContentResponseDTO[] = [];
   @Input() selectedLesson!: LessonResponseDTO;
   @Input() enrollment!: EnrollmentResponseDTO;
+  @Input() currentLessonIndex!: number;
+  @Input() currentUnitIndex!: number;
   @Output() lessonCompleted = new EventEmitter<number>();
   @Output() userUpdated = new EventEmitter<User>();
 
@@ -53,6 +55,8 @@ export class LessonQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeUserData();
+    console.log("current Unit = " + this.currentUnitIndex)
+    console.log('current lesson = ' + this.currentLessonIndex)
   }
 
   selectAnswer(answer: AnswerResponseDTO): void {
@@ -258,8 +262,9 @@ export class LessonQuizComponent implements OnInit {
 
   private async updateEnrollmentInBd(): Promise<void> {
     try {
-      this.enrollment.currentLesson++
-      localStorage.setItem('enrollment', JSON.stringify(this.enrollment));
+      localStorage.removeItem('enrollment');
+      const response: Enrollment = await lastValueFrom(this.enrollmentService.updateEnrollment(this.enrollment, this.currentUnitIndex, this.currentLessonIndex));
+      localStorage.setItem('enrollment', JSON.stringify(response));
     } catch (error) {
       console.error('Erro ao atualizar Mátricula:');
     }

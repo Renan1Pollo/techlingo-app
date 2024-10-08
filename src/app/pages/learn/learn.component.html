@@ -18,7 +18,9 @@
           <section class="units-container">
             <div *ngFor="let lesson of unit.lessonList; let index = index" class="lesson align-items-center text-center">
               <div>
-                <button class="lesson-item" [disabled]="unitIndex > enrollment.currentUnit || (index > enrollment.currentLesson && unitIndex == enrollment.currentUnit)" (click)="openLesson(lesson)">
+                <button class="lesson-item"
+                  [disabled]="unitIndex > enrollment.currentUnit || (index > enrollment.currentLesson && unitIndex == enrollment.currentUnit)"
+                  (click)="openLesson(lesson, unitIndex, index)">
                   <img src="https://d35aaqx5ub95lt.cloudfront.net/images/path/icons/ddd21f172a2db0f5ef169c09b4d3badb.svg" alt="" />
                 </button>
               </div>
@@ -27,14 +29,20 @@
         </div>
 
         <div class="d-flex justify-content-center mt-4">
-          <button (click)="generateReport(unit.id!)" class="btn btn-primary report-button">
+          <button [disabled]="enrollment.currentUnit <= unitIndex" (click)="generateReport(unit.id!)" class="btn btn-primary report-button">
             Gerar Certificado
           </button>
         </div>
       </div>
     </div>
 
-    <app-lesson-quiz *ngIf="selectedLesson" (userUpdated)="onUserUpdated($event)" [selectedLesson]="selectedLesson" [enrollment]="enrollment" [contents]="selectedLesson.contentList" [questions]="selectedLesson.questionList" (lessonCompleted)="onLessonCompleted()"></app-lesson-quiz>
+    <app-lesson-quiz *ngIf="selectedLesson"
+      (userUpdated)="onUserUpdated($event)" [selectedLesson]="selectedLesson"
+      [enrollment]="enrollment" [contents]="selectedLesson.contentList"
+      [questions]="selectedLesson.questionList" (lessonCompleted)="onLessonCompleted()"
+      [currentLessonIndex]="selectedLessonIndex" [currentUnitIndex]="selectedUnitIndex"
+      >
+    </app-lesson-quiz>
 
     <app-modal [isModalOpen]="isModalOpen" (closeModal)="toggleModal()">
       <div class="container mt-5">

@@ -22,6 +22,11 @@ export class EnrollmentService {
     return this.http.post<EnrollmentResponseDTO>(env.enrollmentApiUrl, data);
   }
 
+  updateEnrollment(data: EnrollmentResponseDTO, currentUnit: number, currentLesson: number): Observable<EnrollmentResponseDTO> {
+    const params = this.createHttpParams({ currentUnit, currentLesson });
+    return this.http.put<EnrollmentResponseDTO>(`${env.enrollmentApiUrl}`, data, { params });
+  }
+
   generateReport(data: EnrollmentResponseDTO, unitId: number): Observable<Blob> {
     return this.http.post<Blob>(
       `${env.enrollmentApiUrl}/generate-report/${unitId}`, data, { responseType: 'blob' as 'json' }
@@ -42,10 +47,7 @@ export class EnrollmentService {
     );
   }
 
-  getEnrollmentByUserAndCourse(
-    userId: number,
-    courseId: number
-  ): Observable<EnrollmentResponseDTO> {
+  getEnrollmentByUserAndCourse(userId: number, courseId: number): Observable<EnrollmentResponseDTO> {
     const params = this.createHttpParams({ userId, courseId });
     return this.http.get<EnrollmentResponseDTO>(
       `${env.enrollmentApiUrl}/byUserAndCourse`,
