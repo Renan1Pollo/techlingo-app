@@ -13,4 +13,5 @@ export type EnrollmentResponseDTO = {
   course: CourseResponseDTO;
   enrollmentDate: Date;
   currentLesson: number;
+  currentUnit: number;
 };

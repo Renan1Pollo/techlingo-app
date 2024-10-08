@@ -43,6 +43,7 @@ export class LearnComponent implements OnInit {
     course: {} as CourseResponseDTO,
     enrollmentDate: new Date(),
     currentLesson: 0,
+    currentUnit: 0,
   };
 
   constructor(
