@@ -68,31 +68,24 @@ export class EditQuestionComponent implements OnInit {
         this.lessons = lessons;
         this.lessonsTitle = lessons.map((lesson) => lesson.title);
       },
-      error: (error: HttpErrorResponse) =>
-        this.handleError(error, 'loading lessons'),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'loading lessons'),
     });
   }
 
   extractQuestionIdFromRoute(): void {
-    this.route.params.subscribe((params) => {
-      this.questionId = +params['id'];
-    });
+    this.route.params.subscribe((params) => this.questionId = +params['id']);
   }
 
   loadQuestionData(): void {
     this.questionService.findQuestionById(this.questionId).subscribe({
       next: (question: Question) => this.populateForm(question),
-      error: (error: HttpErrorResponse) =>
-        this.handleError(error, 'fetching question data'),
+      error: (error: HttpErrorResponse) => this.handleError(error, 'fetching question data'),
     });
 
     this.answerService.findAnswerByQuestionId(this.questionId).subscribe({
-      next: (answers: Answer[]) => {
-          console.log('Answers:', answers);
-          this.answers = answers;
-      },
+      next: (answers: Answer[]) => this.answers = answers,
       error: (error: HttpErrorResponse) => this.handleError(error, 'fetching answer data'),
-  });
+    });
   }
 
   populateForm(question: Question): void {

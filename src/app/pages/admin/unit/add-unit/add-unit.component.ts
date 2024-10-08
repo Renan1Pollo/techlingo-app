@@ -67,7 +67,6 @@ export class AddUnitComponent implements OnInit {
           index: this.form.value.index,
         };
 
-        console.log(data)
         this.service.createUnit(data).subscribe({
           next: (response: any) => {
             alert('Unidade Criada com sucesso!');

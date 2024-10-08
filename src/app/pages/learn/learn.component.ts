@@ -71,7 +71,6 @@ export class LearnComponent implements OnInit {
 
   private initializeUser(): void {
     const userData = localStorage.getItem('user');
-    console.log(userData);
     this.user = userData ? JSON.parse(userData) : ({} as User);
   }
 

@@ -55,8 +55,6 @@ export class LessonQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeUserData();
-    console.log("current Unit = " + this.currentUnitIndex)
-    console.log('current lesson = ' + this.currentLessonIndex)
   }
 
   selectAnswer(answer: AnswerResponseDTO): void {
