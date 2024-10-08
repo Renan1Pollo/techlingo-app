@@ -35,6 +35,8 @@ export class LearnComponent implements OnInit {
   courses: CourseResponseDTO[] = [];
   selectedCourse!: CourseResponseDTO;
   selectedLesson: any;
+  selectedLessonIndex!: number;
+  selectedUnitIndex!: number;
   user!: User;
 
   enrollment: EnrollmentResponseDTO = {
@@ -43,6 +45,7 @@ export class LearnComponent implements OnInit {
     course: {} as CourseResponseDTO,
     enrollmentDate: new Date(),
     currentLesson: 0,
+    currentUnit: 0,
   };
 
   constructor(
@@ -98,7 +101,7 @@ export class LearnComponent implements OnInit {
     this.user = updatedUser;
   }
 
-  openLesson(lesson: any): void {
+  openLesson(lesson: any, unitIndex: number, lessonIndex: number): void {
     if (this.user.lives === 0) {
       const minutesRemaining = this.calculateTime();
       if (minutesRemaining > 0) {
@@ -110,6 +113,8 @@ export class LearnComponent implements OnInit {
     }
 
     this.selectedLesson = null;
+    this.selectedLessonIndex = lessonIndex;
+    this.selectedUnitIndex = unitIndex;
     setTimeout(() => {
       this.selectedLesson = lesson;
     });
