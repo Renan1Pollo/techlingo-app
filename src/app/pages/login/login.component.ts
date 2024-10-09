@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private service: AuthService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -45,7 +45,11 @@ export class LoginComponent implements OnInit {
     this.service.login(data).subscribe({
       next: (response: User) => {
         localStorage.setItem('user', JSON.stringify(response));
-        this.router.navigate(['/learn']);
+        if (response.userRole == 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/learn']);
+        }
       },
       error: (error: HttpErrorResponse) => {
         switch (error.status) {

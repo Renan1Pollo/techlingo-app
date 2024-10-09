@@ -7,4 +7,5 @@ export type User = {
   lives: number;
   creationDate: Date;
   lastAccessDate: Date;
+  userRole: string | undefined;
 };
