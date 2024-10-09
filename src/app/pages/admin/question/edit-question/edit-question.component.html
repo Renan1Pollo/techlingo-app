@@ -14,16 +14,16 @@
         <h2>Respostas Adicionadas</h2>
         <ul class="list-group">
           <li *ngFor="let answer of answers; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-              <strong>Resposta:</strong> {{ answer.text }}<br />
-              <strong>Feedback:</strong> {{ answer.feedbackText }}<br />
-              <strong>Correta:</strong> {{ answer.correct ? 'Sim' : 'Não' }}
+            <div style="width: 70%;">
+                <strong>Resposta:</strong> {{ answer.text }}<br />
+                <strong>Feedback:</strong> {{ answer.feedbackText }}<br />
+                <strong>Correta:</strong> {{ answer.correct ? 'Sim' : 'Não' }}
             </div>
-            <div>
-              <button type="button" class="btn btn-warning btn-sm me-2" (click)="openAnswerModal(answer, i)">Editar</button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="removeAnswer(i)">Remover</button>
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-warning btn-sm me-2" (click)="openAnswerModal(answer, i)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm" style="min-width: 70px;" (click)="removeAnswer(i)">Remover</button>
             </div>
-          </li>
+        </li>
         </ul>
       </div>
 
