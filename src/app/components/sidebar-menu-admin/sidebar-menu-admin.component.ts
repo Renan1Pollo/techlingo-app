@@ -9,5 +9,10 @@ import { Router } from '@angular/router';
   styleUrl: './sidebar-menu-admin.component.scss',
 })
 export class SidebarMenuAdminComponent {
+  constructor(private router: Router) {}
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/']);
+  }
 }

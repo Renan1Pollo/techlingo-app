@@ -1,5 +1,5 @@
 <div class="content-wrapper flex-shrink-0 p-3 bg-white h-100" style="width: 280px" bis_skin_checked="1">
-  <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+  <a href="/admin" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
     <span class="fs-3 fw-semibold">TechLingo</span>
   </a>
   <ul class="list-unstyled ps-0">
@@ -91,8 +91,8 @@
       </button>
       <div class="collapse" id="account-collapse" bis_skin_checked="1">
         <ul class="btn-toggle-nav fw-normal pb-1 small">
-          <li><a href="/admin/new" class="text-decoration-none text-dark">Novo</a></li>
-          <li><a href="#" class="text-decoration-none text-dark">Sair</a></li>
+          <li><a class="dropdown-item text-dark" href="/admin/new">Novo</a></li>
+          <li><a class="dropdown-item text-dark" (click)="logout()">Sair</a></li>
         </ul>
       </div>
     </li>

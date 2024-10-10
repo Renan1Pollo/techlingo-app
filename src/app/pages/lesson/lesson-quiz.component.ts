@@ -87,7 +87,7 @@ export class LessonQuizComponent implements OnInit {
   }
 
   moveToPreviousItem(): void {
-    if (this.currentContentIndex === 0) {
+    if (this.currentContentIndex === 0 || this.isContentDisplayed) {
       return;
     }
 
